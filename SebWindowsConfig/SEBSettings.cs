@@ -145,6 +145,8 @@ namespace SebWindowsConfig
 		public const String KeyNewBrowserWindowByLinkWidth          = "newBrowserWindowByLinkWidth";
 		public const String KeyNewBrowserWindowByLinkHeight         = "newBrowserWindowByLinkHeight";
 		public const String KeyNewBrowserWindowByLinkPositioning    = "newBrowserWindowByLinkPositioning";
+		public const String KeyNewBrowserWindowUrlPolicy            = "newBrowserWindowShowURL";
+		public const String KeyMainBrowserWindowUrlPolicy           = "browserWindowShowURL";
 		public const String KeyEnablePlugIns                        = "enablePlugIns";
 		public const String KeyEnableJava                           = "enableJava";
 		public const String KeyEnableJavaScript                     = "enableJavaScript";
@@ -197,6 +199,10 @@ namespace SebWindowsConfig
 		public const String KeyRestartExamURL = "restartExamURL";
 		public const String KeyRestartExamUseStartURL = "restartExamUseStartURL";
 		public const String KeyRestartExamPasswordProtected = "restartExamPasswordProtected";
+		public const String KeyAllowReconfiguration = "examSessionReconfigureAllow";
+		public const String KeyReconfigurationUrl = "examSessionReconfigureConfigURL";
+		public const String KeyResetOnQuitUrl = "quitURLRestart";
+		public const String KeyUseStartUrlQuery = "startURLAppendQueryParameter";
 
 		// Group Additional Resources
 		public const String KeyAdditionalResources = "additionalResources";
@@ -654,7 +660,9 @@ namespace SebWindowsConfig
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkWidth         , "1000");
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkHeight        , "100%");
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkPositioning   , 2);
+			SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowUrlPolicy           , 0);
 
+			SEBSettings.settingsDefault.Add(SEBSettings.KeyMainBrowserWindowUrlPolicy, 0);
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyEnablePlugIns           , true);
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableJava              , false);
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableJavaScript        , true);
@@ -712,6 +720,10 @@ namespace SebWindowsConfig
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamUseStartURL, false);
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText, "");
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamPasswordProtected, true);
+			SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowReconfiguration, false);
+			SEBSettings.settingsDefault.Add(SEBSettings.KeyReconfigurationUrl, "");
+			SEBSettings.settingsDefault.Add(SEBSettings.KeyResetOnQuitUrl, false);
+			SEBSettings.settingsDefault.Add(SEBSettings.KeyUseStartUrlQuery, false);
 
 			// Default settings for group "Additional Resources"
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyAdditionalResources, new ListObj());
@@ -774,8 +786,55 @@ namespace SebWindowsConfig
 			SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyWindowHandlingProcess , "");
 			SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyUser       , "");
 
-			SEBSettings.prohibitedProcessesDefault = new List<string> { "Chrome.exe", "Chromium.exe", "Vivaldi.exe", "Opera.exe", "browser.exe", "slimjet.exe", "UCBrowser.exe", "CamRecorder.exe" };
-			SEBSettings.prohibitedProcessesDefaultStrict = new List<string> { "Skype.exe", "SkypeApp.exe", "SkypeHost.exe", "g2mcomm.exe", "GotoMeetingWinStore.exe", "TeamViewer.exe", "vncserver.exe", "vncviewer.exe", "vncserverui.exe", "chromoting.exe", "Mikogo-host.exe", "AeroAdmin.exe", "beamyourscreen-host.exe", "RemotePCDesktop.exe", "RPCService.exe", "RPCSuite.exe", "join.me.exe" };
+			SEBSettings.prohibitedProcessesDefault = new List<string>
+			{
+				"Chrome.exe",
+				"Chromium.exe",
+				"Vivaldi.exe",
+				"Opera.exe",
+				"browser.exe",
+				"slimjet.exe",
+				"UCBrowser.exe",
+				"CamRecorder.exe"
+			};
+			SEBSettings.prohibitedProcessesDefaultStrict = new List<string>
+			{
+				"Skype.exe",
+				"SkypeApp.exe",
+				"SkypeHost.exe",
+				"g2mcomm.exe",
+				"GotoMeetingWinStore.exe",
+				"TeamViewer.exe",
+				"vncserver.exe",
+				"vncviewer.exe",
+				"vncserverui.exe",
+				"chromoting.exe",
+				"Mikogo-host.exe",
+				"AeroAdmin.exe",
+				"beamyourscreen-host.exe",
+				"RemotePCDesktop.exe",
+				"RPCService.exe",
+				"RPCSuite.exe",
+				"Discord.exe",
+				"Camtasia.exe",
+				"CamtasiaStudio.exe",
+				"Camtasia_Studio.exe",
+				"CamPlay.exe",
+				"CamRecorder.exe",
+				"CamtasiaUtl.exe",
+				"slack.exe",
+				"Element.exe",
+				"Zoom.exe",
+				"Telegram.exe",
+				"g2mcomm.exe",
+				"g2mlauncher.exe",
+				"g2mstart.exe",
+				"join.me.exe",
+				"join.me.sentinel.exe",
+				"Teams.exe",
+				"webexmta.exe",
+				"ptoneclk.exe"
+			};
 
 			// Default settings for group "Network - Filter"
 			SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableURLFilter       , false);

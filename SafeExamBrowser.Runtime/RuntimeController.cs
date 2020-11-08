@@ -344,18 +344,12 @@ namespace SafeExamBrowser.Runtime
 
 		private void RuntimeHost_ReconfigurationRequested(ReconfigurationEventArgs args)
 		{
-			if (Session.Settings.Security.AllowReconfiguration)
-			{
-				logger.Info($"Accepted request for reconfiguration with '{args.ConfigurationPath}'.");
-				sessionContext.ReconfigurationFilePath = args.ConfigurationPath;
+			logger.Info($"Accepted request for reconfiguration with '{args.ConfigurationPath}'.");
 
-				StartSession();
-			}
-			else
-			{
-				logger.Info($"Denied request for reconfiguration with '{args.ConfigurationPath}'!");
-				sessionContext.ClientProxy.InformReconfigurationDenied(args.ConfigurationPath);
-			}
+			sessionContext.ReconfigurationFilePath = args.ConfigurationPath;
+			sessionContext.ReconfigurationUrl = args.ResourceUrl;
+
+			StartSession();
 		}
 
 		private void RuntimeHost_ShutdownRequested()

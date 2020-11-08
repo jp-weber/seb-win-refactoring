@@ -527,6 +527,9 @@ namespace SebWindowsConfig
 			checkBoxSetVolumeLevel.Checked = ((bool) SEBSettings.settingsCurrent[SEBSettings.KeyAudioSetVolumeLevel]);
 			trackBarVolumeLevel.Value = ((int) SEBSettings.settingsCurrent[SEBSettings.KeyAudioVolumeLevel]);
 
+			comboBoxUrlPolicyMainWindow.SelectedIndex = (int) SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowUrlPolicy];
+			comboBoxUrlPolicyNewWindow.SelectedIndex = (int) SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowUrlPolicy];
+
 			// Group "Down/Uploads"
 			checkBoxAllowDownUploads.Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowDownUploads];
 			checkBoxAllowCustomDownloadLocation.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowCustomDownUploadLocation];
@@ -546,11 +549,15 @@ namespace SebWindowsConfig
 			textBoxConfigurationKey.Enabled = checkBoxSendBrowserExamKey.Checked;
 			textBoxQuitURL.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyQuitURL];
 			checkBoxQuitURLConfirm.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyQuitURLConfirm];
+			checkBoxResetOnQuitUrl.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyResetOnQuitUrl];
 			checkBoxUseStartURL.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL];
 			textBoxRestartExamLink.Enabled = !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL];
 			checkBoxRestartExamPasswordProtected.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamPasswordProtected];
 			textBoxRestartExamLink.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamURL];
 			textBoxRestartExamText.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamText];
+			checkBoxAllowReconfiguration.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowReconfiguration];
+			textBoxReconfigurationUrl.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyReconfigurationUrl];
+			checkBoxUseStartUrlQuery.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyUseStartUrlQuery];
 
 			// Group AdditionalResources
 			tabControlSebWindowsConfig.TabPages.Remove(tabPageAdditionalResources);
@@ -4589,6 +4596,36 @@ namespace SebWindowsConfig
 		private void checkBoxAllowFind_CheckedChanged(object sender, EventArgs e)
 		{
 			SEBSettings.settingsCurrent[SEBSettings.KeyAllowFind] = checkBoxAllowFind.Checked;
+		}
+
+		private void checkBoxAllowReconfiguration_CheckedChanged(object sender, EventArgs e)
+		{
+			SEBSettings.settingsCurrent[SEBSettings.KeyAllowReconfiguration] = checkBoxAllowReconfiguration.Checked;
+		}
+
+		private void textBoxReconfigurationUrl_TextChanged(object sender, EventArgs e)
+		{
+			SEBSettings.settingsCurrent[SEBSettings.KeyReconfigurationUrl] = textBoxReconfigurationUrl.Text;
+		}
+
+		private void checkBoxResetOnQuitUrl_CheckedChanged(object sender, EventArgs e)
+		{
+			SEBSettings.settingsCurrent[SEBSettings.KeyResetOnQuitUrl] = checkBoxResetOnQuitUrl.Checked;
+		}
+
+		private void checkBoxUseStartUrlQuery_CheckedChanged(object sender, EventArgs e)
+		{
+			SEBSettings.settingsCurrent[SEBSettings.KeyUseStartUrlQuery] = checkBoxUseStartUrlQuery.Checked;
+		}
+
+		private void comboBoxUrlPolicyMainWindow_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowUrlPolicy] = comboBoxUrlPolicyMainWindow.SelectedIndex;
+		}
+
+		private void comboBoxUrlPolicyNewWindow_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowUrlPolicy] = comboBoxUrlPolicyNewWindow.SelectedIndex;
 		}
 	}
 }

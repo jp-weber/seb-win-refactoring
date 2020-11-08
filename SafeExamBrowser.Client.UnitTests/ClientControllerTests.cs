@@ -610,24 +610,94 @@ namespace SafeExamBrowser.Client.UnitTests
 		}
 
 		[TestMethod]
-		public void Reconfiguration_MustDenyIfInExamMode()
+		public void Reconfiguration_MustAllowIfNoQuitPasswordSet()
 		{
-			settings.ConfigurationMode = ConfigurationMode.Exam;
-			messageBox.Setup(m => m.Show(
-				It.IsAny<TextKey>(),
-				It.IsAny<TextKey>(),
-				It.IsAny<MessageBoxAction>(),
-				It.IsAny<MessageBoxIcon>(),
-				It.IsAny<IWindow>())).Returns(MessageBoxResult.Ok);
+			var args = new DownloadEventArgs();
+
+			appConfig.TemporaryDirectory = @"C:\Folder\Does\Not\Exist";
+			runtimeProxy.Setup(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>())).Returns(new CommunicationResult(true));
 
 			sut.TryStart();
-			browser.Raise(b => b.ConfigurationDownloadRequested += null, "filepath.seb", new DownloadEventArgs());
+			browser.Raise(b => b.ConfigurationDownloadRequested += null, "filepath.seb", args);
+			args.Callback(true, string.Empty);
+
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+			Assert.IsTrue(args.AllowDownload);
+		}
+
+		[TestMethod]
+		public void Reconfiguration_MustAllowWithQuitPasswordAndNoUrl()
+		{
+			var args = new DownloadEventArgs();
+
+			appConfig.TemporaryDirectory = @"C:\Folder\Does\Not\Exist";
+			settings.Security.AllowReconfiguration = true;
+			settings.Security.QuitPasswordHash = "abc123";
+			runtimeProxy.Setup(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>())).Returns(new CommunicationResult(true));
+
+			sut.TryStart();
+			browser.Raise(b => b.ConfigurationDownloadRequested += null, "filepath.seb", args);
+			args.Callback(true, string.Empty);
+
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+			Assert.IsTrue(args.AllowDownload);
+		}
+
+		[TestMethod]
+		public void Reconfiguration_MustAllowIfUrlMatches()
+		{
+			var args = new DownloadEventArgs { Url = "sebs://www.somehost.org/some/path/some_configuration.seb?query=123" };
+
+			appConfig.TemporaryDirectory = @"C:\Folder\Does\Not\Exist";
+			settings.Security.AllowReconfiguration = true;
+			settings.Security.QuitPasswordHash = "abc123";
+			settings.Security.ReconfigurationUrl = "sebs://www.somehost.org/some/path/*.seb?query=123";
+			runtimeProxy.Setup(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>())).Returns(new CommunicationResult(true));
+
+			sut.TryStart();
+			browser.Raise(b => b.ConfigurationDownloadRequested += null, "filepath.seb", args);
+			args.Callback(true, string.Empty);
+
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+			Assert.IsTrue(args.AllowDownload);
+		}
+
+		[TestMethod]
+		public void Reconfiguration_MustDenyIfNotAllowed()
+		{
+			var args = new DownloadEventArgs();
+
+			settings.Security.AllowReconfiguration = false;
+			settings.Security.QuitPasswordHash = "abc123";
+
+			sut.TryStart();
+			browser.Raise(b => b.ConfigurationDownloadRequested += null, "filepath.seb", args);
+
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+			Assert.IsFalse(args.AllowDownload);
+		}
+
+		[TestMethod]
+		public void Reconfiguration_MustDenyIfUrlDoesNotMatch()
+		{
+			var args = new DownloadEventArgs { Url = "sebs://www.somehost.org/some/path/some_configuration.seb?query=123" };
+
+			settings.Security.AllowReconfiguration = false;
+			settings.Security.QuitPasswordHash = "abc123";
+			settings.Security.ReconfigurationUrl = "sebs://www.somehost.org/some/path/other_configuration.seb?query=123";
+
+			sut.TryStart();
+			browser.Raise(b => b.ConfigurationDownloadRequested += null, "filepath.seb", args);
+
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+			Assert.IsFalse(args.AllowDownload);
 		}
 
 		[TestMethod]
 		public void Reconfiguration_MustCorrectlyHandleDownload()
 		{
 			var downloadPath = @"C:\Folder\Does\Not\Exist\filepath.seb";
+			var downloadUrl = @"https://www.host.abc/someresource.seb";
 			var filename = "filepath.seb";
 			var args = new DownloadEventArgs();
 
@@ -639,13 +709,15 @@ namespace SafeExamBrowser.Client.UnitTests
 				It.IsAny<MessageBoxAction>(),
 				It.IsAny<MessageBoxIcon>(),
 				It.IsAny<IWindow>())).Returns(MessageBoxResult.Yes);
-			runtimeProxy.Setup(r => r.RequestReconfiguration(It.Is<string>(p => p == downloadPath))).Returns(new CommunicationResult(true));
+			runtimeProxy.Setup(r => r.RequestReconfiguration(
+				It.Is<string>(p => p == downloadPath),
+				It.Is<string>(u => u == downloadUrl))).Returns(new CommunicationResult(true));
 
 			sut.TryStart();
 			browser.Raise(b => b.ConfigurationDownloadRequested += null, filename, args);
-			args.Callback(true, downloadPath);
+			args.Callback(true, downloadUrl, downloadPath);
 
-			runtimeProxy.Verify(r => r.RequestReconfiguration(It.Is<string>(p => p == downloadPath)), Times.Once);
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.Is<string>(p => p == downloadPath), It.Is<string>(u => u == downloadUrl)), Times.Once);
 
 			Assert.AreEqual(downloadPath, args.DownloadPath);
 			Assert.IsTrue(args.AllowDownload);
@@ -655,6 +727,7 @@ namespace SafeExamBrowser.Client.UnitTests
 		public void Reconfiguration_MustCorrectlyHandleFailedDownload()
 		{
 			var downloadPath = @"C:\Folder\Does\Not\Exist\filepath.seb";
+			var downloadUrl = @"https://www.host.abc/someresource.seb";
 			var filename = "filepath.seb";
 			var args = new DownloadEventArgs();
 
@@ -666,19 +739,22 @@ namespace SafeExamBrowser.Client.UnitTests
 				It.IsAny<MessageBoxAction>(),
 				It.IsAny<MessageBoxIcon>(),
 				It.IsAny<IWindow>())).Returns(MessageBoxResult.Yes);
-			runtimeProxy.Setup(r => r.RequestReconfiguration(It.Is<string>(p => p == downloadPath))).Returns(new CommunicationResult(true));
+			runtimeProxy.Setup(r => r.RequestReconfiguration(
+				It.Is<string>(p => p == downloadPath),
+				It.Is<string>(u => u == downloadUrl))).Returns(new CommunicationResult(true));
 
 			sut.TryStart();
 			browser.Raise(b => b.ConfigurationDownloadRequested += null, filename, args);
 			args.Callback(false, downloadPath);
 
-			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>()), Times.Never);
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
 		}
 
 		[TestMethod]
 		public void Reconfiguration_MustCorrectlyHandleFailedRequest()
 		{
 			var downloadPath = @"C:\Folder\Does\Not\Exist\filepath.seb";
+			var downloadUrl = @"https://www.host.abc/someresource.seb";
 			var filename = "filepath.seb";
 			var args = new DownloadEventArgs();
 
@@ -690,13 +766,15 @@ namespace SafeExamBrowser.Client.UnitTests
 				It.IsAny<MessageBoxAction>(),
 				It.IsAny<MessageBoxIcon>(),
 				It.IsAny<IWindow>())).Returns(MessageBoxResult.Yes);
-			runtimeProxy.Setup(r => r.RequestReconfiguration(It.Is<string>(p => p == downloadPath))).Returns(new CommunicationResult(false));
+			runtimeProxy.Setup(r => r.RequestReconfiguration(
+				It.Is<string>(p => p == downloadPath),
+				It.Is<string>(u => u == downloadUrl))).Returns(new CommunicationResult(false));
 
 			sut.TryStart();
 			browser.Raise(b => b.ConfigurationDownloadRequested += null, filename, args);
-			args.Callback(true, downloadPath);
+			args.Callback(true, downloadUrl, downloadPath);
 
-			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>()), Times.Once);
+			runtimeProxy.Verify(r => r.RequestReconfiguration(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 			messageBox.Verify(m => m.Show(
 				It.IsAny<TextKey>(),
 				It.IsAny<TextKey>(),

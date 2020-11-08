@@ -72,6 +72,11 @@ namespace SafeExamBrowser.Settings.Browser
 		public int? RelativeWidth { get; set; }
 
 		/// <summary>
+		/// Determines whether the home button is visible.
+		/// </summary>
+		public bool ShowHomeButton { get; set; }
+
+		/// <summary>
 		/// Determines whether the user will need to confirm every reload attempt.
 		/// </summary>
 		public bool ShowReloadWarning { get; set; }
@@ -80,5 +85,10 @@ namespace SafeExamBrowser.Settings.Browser
 		/// Determines whether the window toolbar is visible.
 		/// </summary>
 		public bool ShowToolbar { get; set; }
+
+		/// <summary>
+		/// Determines how URLs are handled in the user interface and log.
+		/// </summary>
+		public UrlPolicy UrlPolicy { get; set; }
 	}
 }

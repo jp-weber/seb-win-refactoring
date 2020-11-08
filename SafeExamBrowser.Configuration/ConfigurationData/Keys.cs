@@ -58,10 +58,15 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			internal const string DownloadPdfFiles = "downloadPDFFiles";
 			internal const string EnableBrowser = "enableSebBrowser";
 			internal const string ExamKeySalt = "examKeySalt";
+			internal const string HomeButtonMessage = "restartExamText";
+			internal const string HomeButtonRequiresPassword = "restartExamPasswordProtected";
+			internal const string HomeButtonUrl = "restartExamURL";
+			internal const string HomeButtonUseStartUrl = "restartExamUseStartURL";
 			internal const string PopupPolicy = "newBrowserWindowByLinkPolicy";
 			internal const string PopupBlockForeignHost = "newBrowserWindowByLinkBlockForeign";
 			internal const string QuitUrl = "quitURL";
 			internal const string QuitUrlConfirmation = "quitURLConfirm";
+			internal const string ResetOnQuitUrl = "quitURLRestart";
 			internal const string ShowReloadButton = "showReloadButton";
 			internal const string ShowToolbar = "enableBrowserWindowToolbar";
 			internal const string SendCustomHeaders = "sendBrowserExamKey";
@@ -69,6 +74,7 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			internal const string UserAgentModeDesktop = "browserUserAgentWinDesktopMode";
 			internal const string UserAgentModeMobile = "browserUserAgentWinTouchMode";
 			internal const string UserAgentSuffix = "browserUserAgent";
+			internal const string UseStartUrlQuery = "startURLAppendQueryParameter";
 
 			internal static class AdditionalWindow
 			{
@@ -76,6 +82,7 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 				internal const string AllowNavigation = "newBrowserWindowNavigation";
 				internal const string AllowReload = "newBrowserWindowAllowReload";
 				internal const string ShowReloadWarning = "newBrowserWindowShowReloadWarning";
+				internal const string UrlPolicy = "newBrowserWindowShowURL";
 				internal const string WindowHeight = "newBrowserWindowByLinkHeight";
 				internal const string WindowWidth = "newBrowserWindowByLinkWidth";
 				internal const string WindowPosition = "newBrowserWindowByLinkPositioning";
@@ -98,6 +105,7 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 				internal const string AllowNavigation = "allowBrowsingBackForward";
 				internal const string AllowReload = "browserWindowAllowReload";
 				internal const string ShowReloadWarning = "showReloadWarning";
+				internal const string UrlPolicy = "browserWindowShowURL";
 				internal const string WindowHeight = "mainBrowserWindowHeight";
 				internal const string WindowMode = "browserViewMode";
 				internal const string WindowWidth = "mainBrowserWindowWidth";
@@ -210,11 +218,13 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 		{
 			internal const string AdminPasswordHash = "hashedAdminPassword";
 			internal const string AllowApplicationLog = "allowApplicationLog";
+			internal const string AllowReconfiguration = "examSessionReconfigureAllow";
 			internal const string AllowTermination = "allowQuit";
 			internal const string AllowVirtualMachine = "allowVirtualMachine";
 			internal const string KioskModeCreateNewDesktop = "createNewDesktop";
 			internal const string KioskModeDisableExplorerShell = "killExplorerShell";
 			internal const string QuitPasswordHash = "hashedQuitPassword";
+			internal const string ReconfigurationUrl = "examSessionReconfigureConfigURL";
 		}
 
 		internal static class Server

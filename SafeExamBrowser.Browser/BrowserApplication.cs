@@ -19,13 +19,16 @@ using SafeExamBrowser.Browser.Contracts;
 using SafeExamBrowser.Browser.Contracts.Events;
 using SafeExamBrowser.Browser.Events;
 using SafeExamBrowser.Configuration.Contracts;
+using SafeExamBrowser.Configuration.Contracts.Cryptography;
 using SafeExamBrowser.I18n.Contracts;
 using SafeExamBrowser.Logging.Contracts;
+using SafeExamBrowser.Settings.Browser;
 using SafeExamBrowser.Settings.Browser.Proxy;
 using SafeExamBrowser.Settings.Logging;
 using SafeExamBrowser.UserInterface.Contracts;
 using SafeExamBrowser.UserInterface.Contracts.FileSystemDialog;
 using SafeExamBrowser.UserInterface.Contracts.MessageBox;
+using SafeExamBrowser.WindowsApi.Contracts;
 using BrowserSettings = SafeExamBrowser.Settings.Browser.BrowserSettings;
 
 namespace SafeExamBrowser.Browser
@@ -37,6 +40,8 @@ namespace SafeExamBrowser.Browser
 		private AppConfig appConfig;
 		private List<BrowserApplicationInstance> instances;
 		private IFileSystemDialog fileSystemDialog;
+		private IHashAlgorithm hashAlgorithm;
+		private INativeMethods nativeMethods;
 		private IMessageBox messageBox;
 		private IModuleLogger logger;
 		private BrowserSettings settings;
@@ -58,6 +63,8 @@ namespace SafeExamBrowser.Browser
 			AppConfig appConfig,
 			BrowserSettings settings,
 			IFileSystemDialog fileSystemDialog,
+			IHashAlgorithm hashAlgorithm,
+			INativeMethods nativeMethods,
 			IMessageBox messageBox,
 			IModuleLogger logger,
 			IText text,
@@ -65,6 +72,8 @@ namespace SafeExamBrowser.Browser
 		{
 			this.appConfig = appConfig;
 			this.fileSystemDialog = fileSystemDialog;
+			this.hashAlgorithm = hashAlgorithm;
+			this.nativeMethods = nativeMethods;
 			this.instances = new List<BrowserApplicationInstance>();
 			this.logger = logger;
 			this.messageBox = messageBox;
@@ -141,11 +150,12 @@ namespace SafeExamBrowser.Browser
 			var id = ++instanceIdCounter;
 			var isMainInstance = instances.Count == 0;
 			var instanceLogger = logger.CloneFor($"Browser Instance #{id}");
-			var startUrl = url ?? settings.StartUrl;
-			var instance = new BrowserApplicationInstance(appConfig, settings, id, isMainInstance, fileSystemDialog, messageBox, instanceLogger, text, uiFactory, startUrl);
+			var startUrl = url ?? GenerateStartUrl();
+			var instance = new BrowserApplicationInstance(appConfig, settings, id, isMainInstance, fileSystemDialog, hashAlgorithm, messageBox, instanceLogger, text, uiFactory, startUrl);
 
 			instance.ConfigurationDownloadRequested += (fileName, args) => ConfigurationDownloadRequested?.Invoke(fileName, args);
 			instance.PopupRequested += Instance_PopupRequested;
+			instance.ResetRequested += Instance_ResetRequested;
 			instance.SessionIdentifierDetected += (i) => SessionIdentifierDetected?.Invoke(i);
 			instance.Terminated += Instance_Terminated;
 			instance.TerminationRequested += () => TerminationRequested?.Invoke();
@@ -194,6 +204,25 @@ namespace SafeExamBrowser.Browser
 			{
 				logger.Warn("Failed to initiate cookie deletion!");
 			}
+		}
+
+		private string GenerateStartUrl()
+		{
+			var url = settings.StartUrl;
+
+			if (settings.UseQueryParameter)
+			{
+				if (url.Contains("?") && settings.StartUrlQuery?.Length > 1 && Uri.TryCreate(url, UriKind.Absolute, out var uri))
+				{
+					url = url.Replace(uri.Query, $"{uri.Query}&{settings.StartUrlQuery.Substring(1)}");
+				}
+				else
+				{
+					url = $"{url}{settings.StartUrlQuery}";
+				}
+			}
+
+			return url;
 		}
 
 		private void InitializeApplicationInfo()
@@ -315,8 +344,32 @@ namespace SafeExamBrowser.Browser
 
 		private void Instance_PopupRequested(PopupRequestedEventArgs args)
 		{
-			logger.Info($"Received request to create new instance for '{args.Url}'...");
+			logger.Info($"Received request to create new instance{(settings.AdditionalWindow.UrlPolicy.CanLog() ? $" for '{args.Url}'" : "")}...");
 			CreateNewInstance(args.Url);
+		}
+
+		private void Instance_ResetRequested()
+		{
+			logger.Info("Attempting to reset browser...");
+
+			foreach (var instance in instances)
+			{
+				instance.Terminated -= Instance_Terminated;
+				instance.Terminate();
+				logger.Info($"Terminated browser instance {instance.Id}.");
+			}
+
+			instances.Clear();
+			WindowsChanged?.Invoke();
+
+			if (settings.DeleteCookiesOnStartup && settings.DeleteCookiesOnShutdown)
+			{
+				DeleteCookies();
+			}
+
+			nativeMethods.EmptyClipboard();
+			CreateNewInstance();
+			logger.Info("Successfully reset browser.");
 		}
 
 		private void Instance_Terminated(int id)

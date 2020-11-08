@@ -19,6 +19,7 @@ using SafeExamBrowser.Browser.Events;
 using SafeExamBrowser.Browser.Filters;
 using SafeExamBrowser.Browser.Handlers;
 using SafeExamBrowser.Configuration.Contracts;
+using SafeExamBrowser.Configuration.Contracts.Cryptography;
 using SafeExamBrowser.I18n.Contracts;
 using SafeExamBrowser.Logging.Contracts;
 using SafeExamBrowser.Settings.Browser;
@@ -46,6 +47,7 @@ namespace SafeExamBrowser.Browser
 		private HttpClient httpClient;
 		private bool isMainInstance;
 		private IFileSystemDialog fileSystemDialog;
+		private IHashAlgorithm hashAlgorithm;
 		private IMessageBox messageBox;
 		private IModuleLogger logger;
 		private BrowserSettings settings;
@@ -67,6 +69,7 @@ namespace SafeExamBrowser.Browser
 
 		internal event DownloadRequestedEventHandler ConfigurationDownloadRequested;
 		internal event PopupRequestedEventHandler PopupRequested;
+		internal event ResetRequestedEventHandler ResetRequested;
 		internal event SessionIdentifierDetectedEventHandler SessionIdentifierDetected;
 		internal event InstanceTerminatedEventHandler Terminated;
 		internal event TerminationRequestedEventHandler TerminationRequested;
@@ -80,6 +83,7 @@ namespace SafeExamBrowser.Browser
 			int id,
 			bool isMainInstance,
 			IFileSystemDialog fileSystemDialog,
+			IHashAlgorithm hashAlgorithm,
 			IMessageBox messageBox,
 			IModuleLogger logger,
 			IText text,
@@ -91,6 +95,7 @@ namespace SafeExamBrowser.Browser
 			this.httpClient = new HttpClient();
 			this.isMainInstance = isMainInstance;
 			this.fileSystemDialog = fileSystemDialog;
+			this.hashAlgorithm = hashAlgorithm;
 			this.messageBox = messageBox;
 			this.logger = logger;
 			this.settings = settings;
@@ -112,8 +117,8 @@ namespace SafeExamBrowser.Browser
 
 		internal void Terminate()
 		{
-			control.Destroy();
 			window.Close();
+			control.Destroy();
 		}
 
 		private void InitializeControl()
@@ -122,13 +127,13 @@ namespace SafeExamBrowser.Browser
 			var dialogHandler = new DialogHandler();
 			var displayHandler = new DisplayHandler();
 			var downloadLogger = logger.CloneFor($"{nameof(DownloadHandler)} #{Id}");
-			var downloadHandler = new DownloadHandler(appConfig, settings, downloadLogger);
+			var downloadHandler = new DownloadHandler(appConfig, downloadLogger, settings, WindowSettings);
 			var keyboardHandler = new KeyboardHandler();
 			var lifeSpanHandler = new LifeSpanHandler();
 			var requestFilter = new RequestFilter();
 			var requestLogger = logger.CloneFor($"{nameof(RequestHandler)} #{Id}");
-			var resourceHandler = new ResourceHandler(appConfig, settings, requestFilter, logger, text);
-			var requestHandler = new RequestHandler(appConfig, requestFilter, requestLogger, settings, resourceHandler, text);
+			var resourceHandler = new ResourceHandler(appConfig, requestFilter, logger, settings, WindowSettings, text);
+			var requestHandler = new RequestHandler(appConfig, requestFilter, requestLogger, resourceHandler, settings, WindowSettings, text);
 
 			Icon = new BrowserIconResource();
 
@@ -138,6 +143,7 @@ namespace SafeExamBrowser.Browser
 			downloadHandler.ConfigurationDownloadRequested += DownloadHandler_ConfigurationDownloadRequested;
 			downloadHandler.DownloadUpdated += DownloadHandler_DownloadUpdated;
 			keyboardHandler.FindRequested += KeyboardHandler_FindRequested;
+			keyboardHandler.HomeNavigationRequested += HomeNavigationRequested;
 			keyboardHandler.ReloadRequested += ReloadRequested;
 			keyboardHandler.ZoomInRequested += ZoomInRequested;
 			keyboardHandler.ZoomOutRequested += ZoomOutRequested;
@@ -190,7 +196,7 @@ namespace SafeExamBrowser.Browser
 					rule.Initialize(new FilterRuleSettings { Expression = settings.StartUrl, Result = FilterResult.Allow });
 					requestFilter.Load(rule);
 
-					logger.Debug($"Automatically created filter rule to allow start URL '{settings.StartUrl}'.");
+					logger.Debug($"Automatically created filter rule to allow start URL{(WindowSettings.UrlPolicy.CanLog() ? $" '{settings.StartUrl}'" : "")}.");
 				}
 			}
 		}
@@ -204,6 +210,7 @@ namespace SafeExamBrowser.Browser
 			window.DeveloperConsoleRequested += Window_DeveloperConsoleRequested;
 			window.FindRequested += Window_FindRequested;
 			window.ForwardNavigationRequested += Window_ForwardNavigationRequested;
+			window.HomeNavigationRequested += HomeNavigationRequested;
 			window.ReloadRequested += ReloadRequested;
 			window.ZoomInRequested += ZoomInRequested;
 			window.ZoomOutRequested += ZoomOutRequested;
@@ -218,30 +225,37 @@ namespace SafeExamBrowser.Browser
 
 		private void Control_AddressChanged(string address)
 		{
-			logger.Debug($"Navigated to '{address}'.");
+			logger.Debug($"Navigated{(WindowSettings.UrlPolicy.CanLog() ? $" to '{address}'" : "")}.");
 			window.UpdateAddress(address);
+
+			if (WindowSettings.UrlPolicy == UrlPolicy.Always || WindowSettings.UrlPolicy == UrlPolicy.BeforeTitle)
+			{
+				Title = address;
+				window.UpdateTitle(address);
+				TitleChanged?.Invoke(address);
+			}
 		}
 
 		private void Control_LoadFailed(int errorCode, string errorText, string url)
 		{
 			if (errorCode == (int) CefErrorCode.None)
 			{
-				logger.Info($"Request for '{url}' was successful.");
+				logger.Info($"Request{(WindowSettings.UrlPolicy.CanLog() ? $" for '{url}'" : "")} was successful.");
 			}
 			else if (errorCode == (int) CefErrorCode.Aborted)
 			{
-				logger.Info($"Request for '{url}' was aborted.");
+				logger.Info($"Request{(WindowSettings.UrlPolicy.CanLog() ? $" for '{url}'" : "")} was aborted.");
 			}
 			else if (errorCode == (int) CefErrorCode.UnknownUrlScheme)
 			{
-				logger.Info($"Request for '{url}' contains unknown URL scheme and will be handled by the OS.");
+				logger.Info($"Request{(WindowSettings.UrlPolicy.CanLog() ? $" for '{url}'" : "")} contains unknown URL scheme and will be handled by the OS.");
 			}
 			else
 			{
 				var title = text.Get(TextKey.Browser_LoadErrorTitle);
-				var message = text.Get(TextKey.Browser_LoadErrorMessage).Replace("%%URL%%", url) + $" {errorText} ({errorCode})";
+				var message = text.Get(TextKey.Browser_LoadErrorMessage).Replace("%%URL%%", WindowSettings.UrlPolicy.CanLogError() ? url : "") + $" {errorText} ({errorCode})";
 
-				logger.Warn($"Request for '{url}' failed: {errorText} ({errorCode}).");
+				logger.Warn($"Request{(WindowSettings.UrlPolicy.CanLogError() ? $" for '{url}'" : "")} failed: {errorText} ({errorCode}).");
 
 				Task.Run(() => messageBox.Show(message, title, icon: MessageBoxIcon.Error, parent: window)).ContinueWith(_ => control.NavigateBackwards());
 			}
@@ -256,9 +270,12 @@ namespace SafeExamBrowser.Browser
 
 		private void Control_TitleChanged(string title)
 		{
-			Title = title;
-			window.UpdateTitle(Title);
-			TitleChanged?.Invoke(Title);
+			if (WindowSettings.UrlPolicy != UrlPolicy.Always)
+			{
+				Title = title;
+				window.UpdateTitle(Title);
+				TitleChanged?.Invoke(Title);
+			}
 		}
 
 		private void DialogHandler_DialogRequested(DialogRequestedEventArgs args)
@@ -355,6 +372,50 @@ namespace SafeExamBrowser.Browser
 			window.UpdateDownloadState(state);
 		}
 
+		private void HomeNavigationRequested()
+		{
+			if (isMainInstance && (settings.UseStartUrlAsHomeUrl || !string.IsNullOrWhiteSpace(settings.HomeUrl)))
+			{
+				var navigate = false;
+				var url = settings.UseStartUrlAsHomeUrl ? settings.StartUrl : settings.HomeUrl;
+
+				if (settings.HomeNavigationRequiresPassword && !string.IsNullOrWhiteSpace(settings.HomePasswordHash))
+				{
+					var message = text.Get(TextKey.PasswordDialog_BrowserHomePasswordRequired);
+					var title = !string.IsNullOrWhiteSpace(settings.HomeNavigationMessage) ? settings.HomeNavigationMessage : text.Get(TextKey.PasswordDialog_BrowserHomePasswordRequiredTitle);
+					var dialog = uiFactory.CreatePasswordDialog(message, title);
+					var result = dialog.Show(window);
+
+					if (result.Success)
+					{
+						var passwordHash = hashAlgorithm.GenerateHashFor(result.Password);
+
+						if (settings.HomePasswordHash.Equals(passwordHash, StringComparison.OrdinalIgnoreCase))
+						{
+							navigate = true;
+						}
+						else
+						{
+							messageBox.Show(TextKey.MessageBox_InvalidHomePassword, TextKey.MessageBox_InvalidHomePasswordTitle, icon: MessageBoxIcon.Warning, parent: window);
+						}
+					}
+				}
+				else
+				{
+					var message = text.Get(TextKey.MessageBox_BrowserHomeQuestion);
+					var title = !string.IsNullOrWhiteSpace(settings.HomeNavigationMessage) ? settings.HomeNavigationMessage : text.Get(TextKey.MessageBox_BrowserHomeQuestionTitle);
+					var result = messageBox.Show(message, title, MessageBoxAction.YesNo, MessageBoxIcon.Question, window);
+
+					navigate = result == MessageBoxResult.Yes;
+				}
+
+				if (navigate)
+				{
+					control.NavigateTo(url);
+				}
+			}
+		}
+
 		private void KeyboardHandler_FindRequested()
 		{
 			if (settings.AllowFind)
@@ -373,20 +434,20 @@ namespace SafeExamBrowser.Browser
 			{
 				case PopupPolicy.Allow:
 				case PopupPolicy.AllowSameHost when sameHost:
-					logger.Debug($"Forwarding request to open new window for '{args.Url}'...");
+					logger.Debug($"Forwarding request to open new window{(WindowSettings.UrlPolicy.CanLog() ? $" for '{args.Url}'" : "")}...");
 					PopupRequested?.Invoke(args);
 					break;
 				case PopupPolicy.AllowSameWindow:
 				case PopupPolicy.AllowSameHostAndWindow when sameHost:
-					logger.Info($"Discarding request to open new window and loading '{args.Url}' directly...");
+					logger.Info($"Discarding request to open new window and loading{(WindowSettings.UrlPolicy.CanLog() ? $" '{args.Url}'" : "")} directly...");
 					control.NavigateTo(args.Url);
 					break;
 				case PopupPolicy.AllowSameHost when !sameHost:
 				case PopupPolicy.AllowSameHostAndWindow when !sameHost:
-					logger.Info($"Blocked request to open new window for '{args.Url}' as it targets a different host.");
+					logger.Info($"Blocked request to open new window{(WindowSettings.UrlPolicy.CanLog() ? $" for '{args.Url}'" : "")} as it targets a different host.");
 					break;
 				default:
-					logger.Info($"Blocked request to open new window for '{args.Url}'.");
+					logger.Info($"Blocked request to open new window{(WindowSettings.UrlPolicy.CanLog() ? $" for '{args.Url}'" : "")}.");
 					break;
 			}
 		}
@@ -395,27 +456,35 @@ namespace SafeExamBrowser.Browser
 		{
 			Task.Run(() =>
 			{
-				if (settings.ConfirmQuitUrl)
+				if (settings.ResetOnQuitUrl)
 				{
-					var message = text.Get(TextKey.MessageBox_BrowserQuitUrlConfirmation);
-					var title = text.Get(TextKey.MessageBox_BrowserQuitUrlConfirmationTitle);
-					var result = messageBox.Show(message, title, MessageBoxAction.YesNo, MessageBoxIcon.Question, window);
-					var terminate = result == MessageBoxResult.Yes;
-
-					if (terminate)
-					{
-						logger.Info($"User confirmed termination via quit URL '{url}', forwarding request...");
-						TerminationRequested?.Invoke();
-					}
-					else
-					{
-						logger.Info($"User aborted termination via quit URL '{url}'.");
-					}
+					logger.Info("Forwarding request to reset browser...");
+					ResetRequested?.Invoke();
 				}
 				else
 				{
-					logger.Info($"Automatically requesting termination due to quit URL '{url}'...");
-					TerminationRequested?.Invoke();
+					if (settings.ConfirmQuitUrl)
+					{
+						var message = text.Get(TextKey.MessageBox_BrowserQuitUrlConfirmation);
+						var title = text.Get(TextKey.MessageBox_BrowserQuitUrlConfirmationTitle);
+						var result = messageBox.Show(message, title, MessageBoxAction.YesNo, MessageBoxIcon.Question, window);
+						var terminate = result == MessageBoxResult.Yes;
+
+						if (terminate)
+						{
+							logger.Info($"User confirmed termination via quit URL{(WindowSettings.UrlPolicy.CanLog() ? $" '{url}'" : "")}, forwarding request...");
+							TerminationRequested?.Invoke();
+						}
+						else
+						{
+							logger.Info($"User aborted termination via quit URL{(WindowSettings.UrlPolicy.CanLog() ? $" '{url}'" : "")}.");
+						}
+					}
+					else
+					{
+						logger.Info($"Automatically requesting termination due to quit URL{(WindowSettings.UrlPolicy.CanLog() ? $" '{url}'" : "")}...");
+						TerminationRequested?.Invoke();
+					}
 				}
 			});
 		}
@@ -424,7 +493,7 @@ namespace SafeExamBrowser.Browser
 		{
 			Task.Run(() =>
 			{
-				var message = text.Get(TextKey.MessageBox_BrowserNavigationBlocked).Replace("%%URL%%", url);
+				var message = text.Get(TextKey.MessageBox_BrowserNavigationBlocked).Replace("%%URL%%", WindowSettings.UrlPolicy.CanLogError() ? url : "");
 				var title = text.Get(TextKey.MessageBox_BrowserNavigationBlockedTitle);
 
 				control.TitleChanged -= Control_TitleChanged;

@@ -119,6 +119,26 @@ namespace SafeExamBrowser.Settings.Browser
 		public FilterSettings Filter { get; set; }
 
 		/// <summary>
+		/// An optional custom message shown before navigating home.
+		/// </summary>
+		public string HomeNavigationMessage { get; set; }
+
+		/// <summary>
+		/// Determines whether a password is required to navigate home.
+		/// </summary>
+		public bool HomeNavigationRequiresPassword { get; set; }
+
+		/// <summary>
+		/// The hash code of the password optionally required to navigate home.
+		/// </summary>
+		public string HomePasswordHash { get; set; }
+
+		/// <summary>
+		/// An optional custom URL to be used when navigating home.
+		/// </summary>
+		public string HomeUrl { get; set; }
+
+		/// <summary>
 		/// The settings to be used for the main browser window.
 		/// </summary>
 		public WindowSettings MainWindow { get; set; }
@@ -134,9 +154,14 @@ namespace SafeExamBrowser.Settings.Browser
 		public ProxySettings Proxy { get; set; }
 
 		/// <summary>
-		/// An URL which will initiate the termination of SEB if visited by the user.
+		/// An URL which will initiate the termination of SEB (or reset the browser if <see cref="ResetOnQuitUrl"/> is <c>true</c>) when visited by the user.
 		/// </summary>
 		public string QuitUrl { get; set; }
+
+		/// <summary>
+		/// Determines whether the browser should be reset when a <see cref="QuitUrl"/> is detected.
+		/// </summary>
+		public bool ResetOnQuitUrl { get; set; }
 
 		/// <summary>
 		/// Determines whether the configuration key header is sent with every HTTP request (see also <see cref="ConfigurationKey"/>).
@@ -154,9 +179,24 @@ namespace SafeExamBrowser.Settings.Browser
 		public string StartUrl { get; set; }
 
 		/// <summary>
+		/// A query for the <see cref="StartUrl"/> which SEB automatically extracts from the configuration URL.
+		/// </summary>
+		public string StartUrlQuery { get; set; }
+
+		/// <summary>
 		/// Determines whether a custom user agent will be used for all requests, see <see cref="CustomUserAgent"/>.
 		/// </summary>
 		public bool UseCustomUserAgent { get; set; }
+
+		/// <summary>
+		/// Determines whether the <see cref="StartUrlQuery"/> will be appended to the <see cref="StartUrl"/>.
+		/// </summary>
+		public bool UseQueryParameter { get; set; }
+
+		/// <summary>
+		/// Determines whether the start URL will be used when navigating home.
+		/// </summary>
+		public bool UseStartUrlAsHomeUrl { get; set; }
 
 		/// <summary>
 		/// A custom suffix to be appended to the user agent.

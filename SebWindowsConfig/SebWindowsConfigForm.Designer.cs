@@ -159,10 +159,6 @@ namespace SebWindowsConfig
 			this.tabControlApplications = new System.Windows.Forms.TabControl();
 			this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
 			this.dataGridViewPermittedProcesses = new System.Windows.Forms.DataGridView();
-			this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
-			this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.buttonChoosePermittedProcess = new System.Windows.Forms.Button();
 			this.buttonChoosePermittedApplication = new System.Windows.Forms.Button();
 			this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
@@ -223,12 +219,16 @@ namespace SebWindowsConfig
 			this.buttonRemoveProhibitedProcess = new System.Windows.Forms.Button();
 			this.buttonAddProhibitedProcess = new System.Windows.Forms.Button();
 			this.dataGridViewProhibitedProcesses = new System.Windows.Forms.DataGridView();
-			this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
 			this.tabPageExam = new System.Windows.Forms.TabPage();
+			this.groupBox17 = new System.Windows.Forms.GroupBox();
+			this.label23 = new System.Windows.Forms.Label();
+			this.checkBoxUseStartUrlQuery = new System.Windows.Forms.CheckBox();
+			this.groupBox15 = new System.Windows.Forms.GroupBox();
+			this.label22 = new System.Windows.Forms.Label();
+			this.textBoxReconfigurationUrl = new System.Windows.Forms.TextBox();
+			this.label21 = new System.Windows.Forms.Label();
+			this.checkBoxAllowReconfiguration = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label15 = new System.Windows.Forms.Label();
 			this.checkBoxClearSessionOnEnd = new System.Windows.Forms.CheckBox();
@@ -241,6 +241,7 @@ namespace SebWindowsConfig
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.checkBoxResetOnQuitUrl = new System.Windows.Forms.CheckBox();
 			this.checkBoxQuitURLConfirm = new System.Windows.Forms.CheckBox();
 			this.textBoxQuitURL = new System.Windows.Forms.TextBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
@@ -269,6 +270,18 @@ namespace SebWindowsConfig
 			this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
 			this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
 			this.tabPageBrowser = new System.Windows.Forms.TabPage();
+			this.groupBox19 = new System.Windows.Forms.GroupBox();
+			this.label25 = new System.Windows.Forms.Label();
+			this.comboBoxUrlPolicyNewWindow = new System.Windows.Forms.ComboBox();
+			this.checkBoxAllowNavigationNewWindow = new System.Windows.Forms.CheckBox();
+			this.checkBoxAllowReloadNewWindow = new System.Windows.Forms.CheckBox();
+			this.checkBoxShowReloadWarningNewWindow = new System.Windows.Forms.CheckBox();
+			this.groupBox18 = new System.Windows.Forms.GroupBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.comboBoxUrlPolicyMainWindow = new System.Windows.Forms.ComboBox();
+			this.checkBoxAllowBrowsingBackForward = new System.Windows.Forms.CheckBox();
+			this.checkBoxShowReloadWarning = new System.Windows.Forms.CheckBox();
+			this.checkBoxAllowReload = new System.Windows.Forms.CheckBox();
 			this.label12 = new System.Windows.Forms.Label();
 			this.textBoxUserAgent = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
@@ -291,17 +304,12 @@ namespace SebWindowsConfig
 			this.radioButtonUserAgentDesktopDefault = new System.Windows.Forms.RadioButton();
 			this.radioButtonUserAgentDesktopCustom = new System.Windows.Forms.RadioButton();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.checkBoxAllowFind = new System.Windows.Forms.CheckBox();
 			this.checkBoxAllowPdfReaderToolbar = new System.Windows.Forms.CheckBox();
-			this.checkBoxShowReloadWarningNewWindow = new System.Windows.Forms.CheckBox();
-			this.checkBoxAllowReloadNewWindow = new System.Windows.Forms.CheckBox();
 			this.checkBoxAllowVideoCapture = new System.Windows.Forms.CheckBox();
-			this.checkBoxAllowReload = new System.Windows.Forms.CheckBox();
-			this.checkBoxAllowNavigationNewWindow = new System.Windows.Forms.CheckBox();
 			this.checkBoxAllowAudioCapture = new System.Windows.Forms.CheckBox();
-			this.checkBoxShowReloadWarning = new System.Windows.Forms.CheckBox();
 			this.checkBoxDisableLocalStorage = new System.Windows.Forms.CheckBox();
 			this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
-			this.checkBoxAllowBrowsingBackForward = new System.Windows.Forms.CheckBox();
 			this.checkBoxEnablePlugIns = new System.Windows.Forms.CheckBox();
 			this.checkBoxBlockPopUpWindows = new System.Windows.Forms.CheckBox();
 			this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
@@ -440,7 +448,14 @@ namespace SebWindowsConfig
 			this.editDuplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.checkBoxAllowFind = new System.Windows.Forms.CheckBox();
+			this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
+			this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabPageHookedKeys.SuspendLayout();
 			this.groupBoxFunctionKeys.SuspendLayout();
 			this.groupBoxSpecialKeys.SuspendLayout();
@@ -468,12 +483,16 @@ namespace SebWindowsConfig
 			this.groupBoxProhibitedProcess.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewProhibitedProcesses)).BeginInit();
 			this.tabPageExam.SuspendLayout();
+			this.groupBox17.SuspendLayout();
+			this.groupBox15.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.groupBox8.SuspendLayout();
 			this.groupBox7.SuspendLayout();
 			this.tabPageDownUploads.SuspendLayout();
 			this.tabPageBrowser.SuspendLayout();
+			this.groupBox19.SuspendLayout();
+			this.groupBox18.SuspendLayout();
 			this.groupBox14.SuspendLayout();
 			this.groupBox13.SuspendLayout();
 			this.groupBox12.SuspendLayout();
@@ -2183,32 +2202,6 @@ namespace SebWindowsConfig
 			this.dataGridViewPermittedProcesses.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged);
 			this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);
 			// 
-			// Active
-			// 
-			this.Active.HeaderText = "Active";
-			this.Active.Name = "Active";
-			this.Active.Width = 80;
-			// 
-			// OS
-			// 
-			this.OS.HeaderText = "OS";
-			this.OS.Items.AddRange(new object[] {
-            "OS X",
-            "Win"});
-			this.OS.Name = "OS";
-			// 
-			// Executable
-			// 
-			this.Executable.HeaderText = "Executable";
-			this.Executable.Name = "Executable";
-			this.Executable.Width = 450;
-			// 
-			// Title
-			// 
-			this.Title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.Title.HeaderText = "Title";
-			this.Title.Name = "Title";
-			// 
 			// buttonChoosePermittedProcess
 			// 
 			this.buttonChoosePermittedProcess.Location = new System.Drawing.Point(1004, 179);
@@ -2958,33 +2951,6 @@ namespace SebWindowsConfig
 			this.dataGridViewProhibitedProcesses.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewProhibitedProcesses_CurrentCellDirtyStateChanged);
 			this.dataGridViewProhibitedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewProhibitedProcesses_SelectionChanged);
 			// 
-			// dataGridViewCheckBoxColumn1
-			// 
-			this.dataGridViewCheckBoxColumn1.HeaderText = "Active";
-			this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-			this.dataGridViewCheckBoxColumn1.Width = 80;
-			// 
-			// dataGridViewComboBoxColumn1
-			// 
-			this.dataGridViewComboBoxColumn1.HeaderText = "OS";
-			this.dataGridViewComboBoxColumn1.Items.AddRange(new object[] {
-            "OS X",
-            "Win"});
-			this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
-			this.dataGridViewComboBoxColumn1.Width = 120;
-			// 
-			// dataGridViewTextBoxColumn1
-			// 
-			this.dataGridViewTextBoxColumn1.HeaderText = "Executable";
-			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-			this.dataGridViewTextBoxColumn1.Width = 450;
-			// 
-			// dataGridViewTextBoxColumn2
-			// 
-			this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.dataGridViewTextBoxColumn2.HeaderText = "Description";
-			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-			// 
 			// checkBoxMonitorProcesses
 			// 
 			this.checkBoxMonitorProcesses.AutoSize = true;
@@ -3003,6 +2969,8 @@ namespace SebWindowsConfig
 			// 
 			// tabPageExam
 			// 
+			this.tabPageExam.Controls.Add(this.groupBox17);
+			this.tabPageExam.Controls.Add(this.groupBox15);
 			this.tabPageExam.Controls.Add(this.groupBox2);
 			this.tabPageExam.Controls.Add(this.groupBox9);
 			this.tabPageExam.Controls.Add(this.groupBox8);
@@ -3019,6 +2987,91 @@ namespace SebWindowsConfig
 			this.tabPageExam.Text = " Exam";
 			this.tabPageExam.UseVisualStyleBackColor = true;
 			// 
+			// groupBox17
+			// 
+			this.groupBox17.Controls.Add(this.label23);
+			this.groupBox17.Controls.Add(this.checkBoxUseStartUrlQuery);
+			this.groupBox17.Location = new System.Drawing.Point(605, 471);
+			this.groupBox17.Name = "groupBox17";
+			this.groupBox17.Size = new System.Drawing.Size(610, 86);
+			this.groupBox17.TabIndex = 124;
+			this.groupBox17.TabStop = false;
+			this.groupBox17.Text = "Query String Parameter";
+			// 
+			// label23
+			// 
+			this.label23.Location = new System.Drawing.Point(12, 24);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(592, 27);
+			this.label23.TabIndex = 1;
+			this.label23.Text = resources.GetString("label23.Text");
+			// 
+			// checkBoxUseStartUrlQuery
+			// 
+			this.checkBoxUseStartUrlQuery.AutoSize = true;
+			this.checkBoxUseStartUrlQuery.Location = new System.Drawing.Point(15, 59);
+			this.checkBoxUseStartUrlQuery.Name = "checkBoxUseStartUrlQuery";
+			this.checkBoxUseStartUrlQuery.Size = new System.Drawing.Size(133, 17);
+			this.checkBoxUseStartUrlQuery.TabIndex = 0;
+			this.checkBoxUseStartUrlQuery.Text = "Allow Query Parameter";
+			this.toolTip1.SetToolTip(this.checkBoxUseStartUrlQuery, "If a seb(s):// link contains an additional query string, SEB appends it to the ex" +
+        "am\'s Start URL");
+			this.checkBoxUseStartUrlQuery.UseVisualStyleBackColor = true;
+			this.checkBoxUseStartUrlQuery.CheckedChanged += new System.EventHandler(this.checkBoxUseStartUrlQuery_CheckedChanged);
+			// 
+			// groupBox15
+			// 
+			this.groupBox15.Controls.Add(this.label22);
+			this.groupBox15.Controls.Add(this.textBoxReconfigurationUrl);
+			this.groupBox15.Controls.Add(this.label21);
+			this.groupBox15.Controls.Add(this.checkBoxAllowReconfiguration);
+			this.groupBox15.Location = new System.Drawing.Point(26, 413);
+			this.groupBox15.Name = "groupBox15";
+			this.groupBox15.Size = new System.Drawing.Size(553, 144);
+			this.groupBox15.TabIndex = 123;
+			this.groupBox15.TabStop = false;
+			this.groupBox15.Text = "Reconfiguring Secure/Exam Session";
+			// 
+			// label22
+			// 
+			this.label22.Location = new System.Drawing.Point(10, 26);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(527, 43);
+			this.label22.TabIndex = 4;
+			this.label22.Text = resources.GetString("label22.Text");
+			// 
+			// textBoxReconfigurationUrl
+			// 
+			this.textBoxReconfigurationUrl.Location = new System.Drawing.Point(114, 108);
+			this.textBoxReconfigurationUrl.Name = "textBoxReconfigurationUrl";
+			this.textBoxReconfigurationUrl.Size = new System.Drawing.Size(423, 20);
+			this.textBoxReconfigurationUrl.TabIndex = 2;
+			this.toolTip1.SetToolTip(this.textBoxReconfigurationUrl, "The URL of the seb(s) link which invokes reconfiguring a secure session has to be" +
+        " matched by this string");
+			this.textBoxReconfigurationUrl.TextChanged += new System.EventHandler(this.textBoxReconfigurationUrl_TextChanged);
+			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Location = new System.Drawing.Point(10, 111);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(98, 13);
+			this.label21.TabIndex = 1;
+			this.label21.Text = "Reconfiguring URL";
+			// 
+			// checkBoxAllowReconfiguration
+			// 
+			this.checkBoxAllowReconfiguration.AutoSize = true;
+			this.checkBoxAllowReconfiguration.Location = new System.Drawing.Point(13, 78);
+			this.checkBoxAllowReconfiguration.Name = "checkBoxAllowReconfiguration";
+			this.checkBoxAllowReconfiguration.Size = new System.Drawing.Size(218, 17);
+			this.checkBoxAllowReconfiguration.TabIndex = 0;
+			this.checkBoxAllowReconfiguration.Text = "Allow reconfiguring secure/exam session";
+			this.toolTip1.SetToolTip(this.checkBoxAllowReconfiguration, "Allow reconfiguring while using a secure client config (with quit password) or du" +
+        "ring an exam session by loading an SEB config file");
+			this.checkBoxAllowReconfiguration.UseVisualStyleBackColor = true;
+			this.checkBoxAllowReconfiguration.CheckedChanged += new System.EventHandler(this.checkBoxAllowReconfiguration_CheckedChanged);
+			// 
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.label15);
@@ -3028,7 +3081,7 @@ namespace SebWindowsConfig
 			this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-			this.groupBox2.Size = new System.Drawing.Size(610, 118);
+			this.groupBox2.Size = new System.Drawing.Size(610, 108);
 			this.groupBox2.TabIndex = 122;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Session Handling";
@@ -3046,7 +3099,7 @@ namespace SebWindowsConfig
 			// checkBoxClearSessionOnEnd
 			// 
 			this.checkBoxClearSessionOnEnd.AutoSize = true;
-			this.checkBoxClearSessionOnEnd.Location = new System.Drawing.Point(15, 88);
+			this.checkBoxClearSessionOnEnd.Location = new System.Drawing.Point(15, 83);
 			this.checkBoxClearSessionOnEnd.Margin = new System.Windows.Forms.Padding(2);
 			this.checkBoxClearSessionOnEnd.Name = "checkBoxClearSessionOnEnd";
 			this.checkBoxClearSessionOnEnd.Size = new System.Drawing.Size(570, 17);
@@ -3078,10 +3131,10 @@ namespace SebWindowsConfig
 			this.groupBox9.Controls.Add(this.textBox3);
 			this.groupBox9.Location = new System.Drawing.Point(605, 287);
 			this.groupBox9.Name = "groupBox9";
-			this.groupBox9.Size = new System.Drawing.Size(610, 181);
+			this.groupBox9.Size = new System.Drawing.Size(610, 168);
 			this.groupBox9.TabIndex = 121;
 			this.groupBox9.TabStop = false;
-			this.groupBox9.Text = "Back to Start Button (Mac)";
+			this.groupBox9.Text = "Back to Start Button";
 			// 
 			// checkBoxUseStartURL
 			// 
@@ -3112,7 +3165,7 @@ namespace SebWindowsConfig
 			// 
 			this.checkBoxRestartExamPasswordProtected.AutoSize = true;
 			this.checkBoxRestartExamPasswordProtected.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(14, 152);
+			this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(15, 139);
 			this.checkBoxRestartExamPasswordProtected.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
 			this.checkBoxRestartExamPasswordProtected.Name = "checkBoxRestartExamPasswordProtected";
 			this.checkBoxRestartExamPasswordProtected.Size = new System.Drawing.Size(300, 17);
@@ -3126,7 +3179,7 @@ namespace SebWindowsConfig
 			// textBoxRestartExamText
 			// 
 			this.textBoxRestartExamText.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBoxRestartExamText.Location = new System.Drawing.Point(14, 101);
+			this.textBoxRestartExamText.Location = new System.Drawing.Point(14, 90);
 			this.textBoxRestartExamText.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
 			this.textBoxRestartExamText.Name = "textBoxRestartExamText";
 			this.textBoxRestartExamText.Size = new System.Drawing.Size(526, 19);
@@ -3140,7 +3193,7 @@ namespace SebWindowsConfig
 			this.textBox4.BackColor = System.Drawing.SystemColors.Window;
 			this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox4.Location = new System.Drawing.Point(15, 126);
+			this.textBox4.Location = new System.Drawing.Point(15, 118);
 			this.textBox4.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
 			this.textBox4.Multiline = true;
 			this.textBox4.Name = "textBox4";
@@ -3167,15 +3220,29 @@ namespace SebWindowsConfig
 			// 
 			// groupBox8
 			// 
+			this.groupBox8.Controls.Add(this.checkBoxResetOnQuitUrl);
 			this.groupBox8.Controls.Add(this.checkBoxQuitURLConfirm);
 			this.groupBox8.Controls.Add(this.textBoxQuitURL);
 			this.groupBox8.Controls.Add(this.textBox1);
-			this.groupBox8.Location = new System.Drawing.Point(605, 150);
+			this.groupBox8.Location = new System.Drawing.Point(605, 138);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(610, 117);
+			this.groupBox8.Size = new System.Drawing.Size(610, 136);
 			this.groupBox8.TabIndex = 120;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Link to quit SEB after exam";
+			// 
+			// checkBoxResetOnQuitUrl
+			// 
+			this.checkBoxResetOnQuitUrl.AutoSize = true;
+			this.checkBoxResetOnQuitUrl.Location = new System.Drawing.Point(15, 110);
+			this.checkBoxResetOnQuitUrl.Name = "checkBoxResetOnQuitUrl";
+			this.checkBoxResetOnQuitUrl.Size = new System.Drawing.Size(146, 17);
+			this.checkBoxResetOnQuitUrl.TabIndex = 115;
+			this.checkBoxResetOnQuitUrl.Text = "Restart instead of quitting";
+			this.toolTip1.SetToolTip(this.checkBoxResetOnQuitUrl, "Session in SEB is restarted after the quit URL has been detected, instead of quit" +
+        "ting SEB");
+			this.checkBoxResetOnQuitUrl.UseVisualStyleBackColor = true;
+			this.checkBoxResetOnQuitUrl.CheckedChanged += new System.EventHandler(this.checkBoxResetOnQuitUrl_CheckedChanged);
 			// 
 			// checkBoxQuitURLConfirm
 			// 
@@ -3216,9 +3283,9 @@ namespace SebWindowsConfig
 			this.textBox1.ReadOnly = true;
 			this.textBox1.Size = new System.Drawing.Size(456, 30);
 			this.textBox1.TabIndex = 113;
-			this.textBox1.Text = "Place this quit link to the \"feedback\" page displayed after an exam was successfu" +
-    "lly finished. Clicking that link will quit SEB without having to enter the quit " +
-    "password.";
+			this.textBox1.Text = "Place this Quit Link to the \'feedback\' page displayed after an exam was successfu" +
+    "lly finished. Clicking that link will quit or restart SEB without having to ente" +
+    "r the quit password.";
 			// 
 			// groupBox7
 			// 
@@ -3517,6 +3584,8 @@ namespace SebWindowsConfig
 			// 
 			// tabPageBrowser
 			// 
+			this.tabPageBrowser.Controls.Add(this.groupBox19);
+			this.tabPageBrowser.Controls.Add(this.groupBox18);
 			this.tabPageBrowser.Controls.Add(this.label12);
 			this.tabPageBrowser.Controls.Add(this.textBoxUserAgent);
 			this.tabPageBrowser.Controls.Add(this.label11);
@@ -3540,6 +3609,156 @@ namespace SebWindowsConfig
 			this.tabPageBrowser.TabIndex = 14;
 			this.tabPageBrowser.Text = "Browser";
 			this.tabPageBrowser.UseVisualStyleBackColor = true;
+			// 
+			// groupBox19
+			// 
+			this.groupBox19.Controls.Add(this.label25);
+			this.groupBox19.Controls.Add(this.comboBoxUrlPolicyNewWindow);
+			this.groupBox19.Controls.Add(this.checkBoxAllowNavigationNewWindow);
+			this.groupBox19.Controls.Add(this.checkBoxAllowReloadNewWindow);
+			this.groupBox19.Controls.Add(this.checkBoxShowReloadWarningNewWindow);
+			this.groupBox19.Location = new System.Drawing.Point(281, 342);
+			this.groupBox19.Name = "groupBox19";
+			this.groupBox19.Size = new System.Drawing.Size(265, 108);
+			this.groupBox19.TabIndex = 128;
+			this.groupBox19.TabStop = false;
+			this.groupBox19.Text = "Restrictions in Additional Windows";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(38, 82);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(64, 13);
+			this.label25.TabIndex = 15;
+			this.label25.Text = "Show URLs";
+			this.toolTip1.SetToolTip(this.label25, "For some exam scenarios, you might want to keep URLs secret");
+			// 
+			// comboBoxUrlPolicyNewWindow
+			// 
+			this.comboBoxUrlPolicyNewWindow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxUrlPolicyNewWindow.FormattingEnabled = true;
+			this.comboBoxUrlPolicyNewWindow.Location = new System.Drawing.Point(126, 79);
+			this.comboBoxUrlPolicyNewWindow.Name = "comboBoxUrlPolicyNewWindow";
+			this.comboBoxUrlPolicyNewWindow.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxUrlPolicyNewWindow.TabIndex = 14;
+			this.toolTip1.SetToolTip(this.comboBoxUrlPolicyNewWindow, "For some exam scenarios, you might want to keep URLs secret");
+			this.comboBoxUrlPolicyNewWindow.SelectedIndexChanged += new System.EventHandler(this.comboBoxUrlPolicyNewWindow_SelectedIndexChanged);
+			// 
+			// checkBoxAllowNavigationNewWindow
+			// 
+			this.checkBoxAllowNavigationNewWindow.AutoSize = true;
+			this.checkBoxAllowNavigationNewWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.checkBoxAllowNavigationNewWindow.Location = new System.Drawing.Point(12, 20);
+			this.checkBoxAllowNavigationNewWindow.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+			this.checkBoxAllowNavigationNewWindow.Name = "checkBoxAllowNavigationNewWindow";
+			this.checkBoxAllowNavigationNewWindow.Size = new System.Drawing.Size(206, 17);
+			this.checkBoxAllowNavigationNewWindow.TabIndex = 8;
+			this.checkBoxAllowNavigationNewWindow.Text = "Allow navigating in additional windows";
+			this.toolTip1.SetToolTip(this.checkBoxAllowNavigationNewWindow, resources.GetString("checkBoxAllowNavigationNewWindow.ToolTip"));
+			this.checkBoxAllowNavigationNewWindow.UseVisualStyleBackColor = true;
+			this.checkBoxAllowNavigationNewWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowNavigationNewWindow_CheckedChanged);
+			// 
+			// checkBoxAllowReloadNewWindow
+			// 
+			this.checkBoxAllowReloadNewWindow.AutoSize = true;
+			this.checkBoxAllowReloadNewWindow.Location = new System.Drawing.Point(12, 41);
+			this.checkBoxAllowReloadNewWindow.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+			this.checkBoxAllowReloadNewWindow.Name = "checkBoxAllowReloadNewWindow";
+			this.checkBoxAllowReloadNewWindow.Size = new System.Drawing.Size(186, 17);
+			this.checkBoxAllowReloadNewWindow.TabIndex = 12;
+			this.checkBoxAllowReloadNewWindow.Text = "Allow reload in additional windows";
+			this.toolTip1.SetToolTip(this.checkBoxAllowReloadNewWindow, "Allow reloading additional windows with F5 or reload button (if displayed)");
+			this.checkBoxAllowReloadNewWindow.UseVisualStyleBackColor = true;
+			this.checkBoxAllowReloadNewWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowReloadNewWindow_CheckedChanged);
+			// 
+			// checkBoxShowReloadWarningNewWindow
+			// 
+			this.checkBoxShowReloadWarningNewWindow.AutoSize = true;
+			this.checkBoxShowReloadWarningNewWindow.Location = new System.Drawing.Point(12, 60);
+			this.checkBoxShowReloadWarningNewWindow.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+			this.checkBoxShowReloadWarningNewWindow.Name = "checkBoxShowReloadWarningNewWindow";
+			this.checkBoxShowReloadWarningNewWindow.Size = new System.Drawing.Size(228, 17);
+			this.checkBoxShowReloadWarningNewWindow.TabIndex = 13;
+			this.checkBoxShowReloadWarningNewWindow.Text = "Show reload warning in additional windows";
+			this.toolTip1.SetToolTip(this.checkBoxShowReloadWarningNewWindow, "User has to confirm reloading a web page with F5 or reload button");
+			this.checkBoxShowReloadWarningNewWindow.UseVisualStyleBackColor = true;
+			this.checkBoxShowReloadWarningNewWindow.CheckedChanged += new System.EventHandler(this.checkBoxShowReloadWarningNewWindow_CheckedChanged);
+			// 
+			// groupBox18
+			// 
+			this.groupBox18.Controls.Add(this.label24);
+			this.groupBox18.Controls.Add(this.comboBoxUrlPolicyMainWindow);
+			this.groupBox18.Controls.Add(this.checkBoxAllowBrowsingBackForward);
+			this.groupBox18.Controls.Add(this.checkBoxShowReloadWarning);
+			this.groupBox18.Controls.Add(this.checkBoxAllowReload);
+			this.groupBox18.Location = new System.Drawing.Point(24, 342);
+			this.groupBox18.Name = "groupBox18";
+			this.groupBox18.Size = new System.Drawing.Size(239, 108);
+			this.groupBox18.TabIndex = 127;
+			this.groupBox18.TabStop = false;
+			this.groupBox18.Text = "Restrictions in Exam Window";
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(21, 82);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(64, 13);
+			this.label24.TabIndex = 11;
+			this.label24.Text = "Show URLs";
+			this.toolTip1.SetToolTip(this.label24, "For some exam scenarios, you might want to keep URLs secret");
+			// 
+			// comboBoxUrlPolicyMainWindow
+			// 
+			this.comboBoxUrlPolicyMainWindow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxUrlPolicyMainWindow.FormattingEnabled = true;
+			this.comboBoxUrlPolicyMainWindow.Location = new System.Drawing.Point(102, 80);
+			this.comboBoxUrlPolicyMainWindow.Name = "comboBoxUrlPolicyMainWindow";
+			this.comboBoxUrlPolicyMainWindow.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxUrlPolicyMainWindow.TabIndex = 10;
+			this.toolTip1.SetToolTip(this.comboBoxUrlPolicyMainWindow, "For some exam scenarios, you might want to keep URLs secret");
+			this.comboBoxUrlPolicyMainWindow.SelectedIndexChanged += new System.EventHandler(this.comboBoxUrlPolicyMainWindow_SelectedIndexChanged);
+			// 
+			// checkBoxAllowBrowsingBackForward
+			// 
+			this.checkBoxAllowBrowsingBackForward.AutoSize = true;
+			this.checkBoxAllowBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(14, 20);
+			this.checkBoxAllowBrowsingBackForward.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+			this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
+			this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(209, 17);
+			this.checkBoxAllowBrowsingBackForward.TabIndex = 4;
+			this.checkBoxAllowBrowsingBackForward.Text = "Allow navigating back/forward in exam";
+			this.toolTip1.SetToolTip(this.checkBoxAllowBrowsingBackForward, resources.GetString("checkBoxAllowBrowsingBackForward.ToolTip"));
+			this.checkBoxAllowBrowsingBackForward.UseVisualStyleBackColor = true;
+			this.checkBoxAllowBrowsingBackForward.CheckedChanged += new System.EventHandler(this.checkBoxAllowBrowsingBackForward_CheckedChanged);
+			// 
+			// checkBoxShowReloadWarning
+			// 
+			this.checkBoxShowReloadWarning.AutoSize = true;
+			this.checkBoxShowReloadWarning.Location = new System.Drawing.Point(14, 59);
+			this.checkBoxShowReloadWarning.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+			this.checkBoxShowReloadWarning.Name = "checkBoxShowReloadWarning";
+			this.checkBoxShowReloadWarning.Size = new System.Drawing.Size(164, 17);
+			this.checkBoxShowReloadWarning.TabIndex = 5;
+			this.checkBoxShowReloadWarning.Text = "Show reload warning in exam";
+			this.toolTip1.SetToolTip(this.checkBoxShowReloadWarning, "User has to confirm reloading a web page with F5 or reload button");
+			this.checkBoxShowReloadWarning.UseVisualStyleBackColor = true;
+			this.checkBoxShowReloadWarning.CheckedChanged += new System.EventHandler(this.checkBoxShowReloadWarning_CheckedChanged);
+			// 
+			// checkBoxAllowReload
+			// 
+			this.checkBoxAllowReload.AutoSize = true;
+			this.checkBoxAllowReload.Location = new System.Drawing.Point(14, 40);
+			this.checkBoxAllowReload.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+			this.checkBoxAllowReload.Name = "checkBoxAllowReload";
+			this.checkBoxAllowReload.Size = new System.Drawing.Size(122, 17);
+			this.checkBoxAllowReload.TabIndex = 9;
+			this.checkBoxAllowReload.Text = "Allow reload in exam";
+			this.toolTip1.SetToolTip(this.checkBoxAllowReload, "Allow reload in the exam window with F5 or reload button (if displayed)");
+			this.checkBoxAllowReload.UseVisualStyleBackColor = true;
+			this.checkBoxAllowReload.CheckedChanged += new System.EventHandler(this.checkBoxAllowReload_CheckedChanged);
 			// 
 			// label12
 			// 
@@ -3811,31 +4030,36 @@ namespace SebWindowsConfig
 			// 
 			this.groupBox11.Controls.Add(this.checkBoxAllowFind);
 			this.groupBox11.Controls.Add(this.checkBoxAllowPdfReaderToolbar);
-			this.groupBox11.Controls.Add(this.checkBoxShowReloadWarningNewWindow);
-			this.groupBox11.Controls.Add(this.checkBoxAllowReloadNewWindow);
 			this.groupBox11.Controls.Add(this.checkBoxAllowVideoCapture);
-			this.groupBox11.Controls.Add(this.checkBoxAllowReload);
-			this.groupBox11.Controls.Add(this.checkBoxAllowNavigationNewWindow);
 			this.groupBox11.Controls.Add(this.checkBoxAllowAudioCapture);
-			this.groupBox11.Controls.Add(this.checkBoxShowReloadWarning);
 			this.groupBox11.Controls.Add(this.checkBoxDisableLocalStorage);
 			this.groupBox11.Controls.Add(this.checkBoxRemoveProfile);
-			this.groupBox11.Controls.Add(this.checkBoxAllowBrowsingBackForward);
 			this.groupBox11.Controls.Add(this.checkBoxEnablePlugIns);
 			this.groupBox11.Controls.Add(this.checkBoxBlockPopUpWindows);
 			this.groupBox11.Controls.Add(this.checkBoxEnableJavaScript);
 			this.groupBox11.Controls.Add(this.checkBoxEnableJava);
 			this.groupBox11.Location = new System.Drawing.Point(24, 202);
 			this.groupBox11.Name = "groupBox11";
-			this.groupBox11.Size = new System.Drawing.Size(522, 187);
+			this.groupBox11.Size = new System.Drawing.Size(522, 113);
 			this.groupBox11.TabIndex = 71;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Browser security";
 			// 
+			// checkBoxAllowFind
+			// 
+			this.checkBoxAllowFind.AutoSize = true;
+			this.checkBoxAllowFind.Location = new System.Drawing.Point(14, 24);
+			this.checkBoxAllowFind.Name = "checkBoxAllowFind";
+			this.checkBoxAllowFind.Size = new System.Drawing.Size(106, 17);
+			this.checkBoxAllowFind.TabIndex = 15;
+			this.checkBoxAllowFind.Text = "Allow text search";
+			this.checkBoxAllowFind.UseVisualStyleBackColor = true;
+			this.checkBoxAllowFind.CheckedChanged += new System.EventHandler(this.checkBoxAllowFind_CheckedChanged);
+			// 
 			// checkBoxAllowPdfReaderToolbar
 			// 
 			this.checkBoxAllowPdfReaderToolbar.AutoSize = true;
-			this.checkBoxAllowPdfReaderToolbar.Location = new System.Drawing.Point(14, 114);
+			this.checkBoxAllowPdfReaderToolbar.Location = new System.Drawing.Point(14, 49);
 			this.checkBoxAllowPdfReaderToolbar.Name = "checkBoxAllowPdfReaderToolbar";
 			this.checkBoxAllowPdfReaderToolbar.Size = new System.Drawing.Size(485, 17);
 			this.checkBoxAllowPdfReaderToolbar.TabIndex = 14;
@@ -3843,32 +4067,6 @@ namespace SebWindowsConfig
     "download dialogs.";
 			this.checkBoxAllowPdfReaderToolbar.UseVisualStyleBackColor = true;
 			this.checkBoxAllowPdfReaderToolbar.CheckedChanged += new System.EventHandler(this.checkBoxAllowPdfReaderToolbar_CheckedChanged);
-			// 
-			// checkBoxShowReloadWarningNewWindow
-			// 
-			this.checkBoxShowReloadWarningNewWindow.AutoSize = true;
-			this.checkBoxShowReloadWarningNewWindow.Location = new System.Drawing.Point(259, 59);
-			this.checkBoxShowReloadWarningNewWindow.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-			this.checkBoxShowReloadWarningNewWindow.Name = "checkBoxShowReloadWarningNewWindow";
-			this.checkBoxShowReloadWarningNewWindow.Size = new System.Drawing.Size(228, 17);
-			this.checkBoxShowReloadWarningNewWindow.TabIndex = 13;
-			this.checkBoxShowReloadWarningNewWindow.Text = "Show reload warning in additional windows";
-			this.toolTip1.SetToolTip(this.checkBoxShowReloadWarningNewWindow, "User has to confirm reloading a web page with F5 or reload button");
-			this.checkBoxShowReloadWarningNewWindow.UseVisualStyleBackColor = true;
-			this.checkBoxShowReloadWarningNewWindow.CheckedChanged += new System.EventHandler(this.checkBoxShowReloadWarningNewWindow_CheckedChanged);
-			// 
-			// checkBoxAllowReloadNewWindow
-			// 
-			this.checkBoxAllowReloadNewWindow.AutoSize = true;
-			this.checkBoxAllowReloadNewWindow.Location = new System.Drawing.Point(259, 40);
-			this.checkBoxAllowReloadNewWindow.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-			this.checkBoxAllowReloadNewWindow.Name = "checkBoxAllowReloadNewWindow";
-			this.checkBoxAllowReloadNewWindow.Size = new System.Drawing.Size(186, 17);
-			this.checkBoxAllowReloadNewWindow.TabIndex = 12;
-			this.checkBoxAllowReloadNewWindow.Text = "Allow reload in additional windows";
-			this.toolTip1.SetToolTip(this.checkBoxAllowReloadNewWindow, "Allow reloading additional windows with F5 or reload button (if displayed)");
-			this.checkBoxAllowReloadNewWindow.UseVisualStyleBackColor = true;
-			this.checkBoxAllowReloadNewWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowReloadNewWindow_CheckedChanged);
 			// 
 			// checkBoxAllowVideoCapture
 			// 
@@ -3885,33 +4083,6 @@ namespace SebWindowsConfig
 			this.checkBoxAllowVideoCapture.Visible = false;
 			this.checkBoxAllowVideoCapture.CheckedChanged += new System.EventHandler(this.checkBoxAllowVideoCapture_CheckedChanged);
 			// 
-			// checkBoxAllowReload
-			// 
-			this.checkBoxAllowReload.AutoSize = true;
-			this.checkBoxAllowReload.Location = new System.Drawing.Point(14, 40);
-			this.checkBoxAllowReload.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-			this.checkBoxAllowReload.Name = "checkBoxAllowReload";
-			this.checkBoxAllowReload.Size = new System.Drawing.Size(122, 17);
-			this.checkBoxAllowReload.TabIndex = 9;
-			this.checkBoxAllowReload.Text = "Allow reload in exam";
-			this.toolTip1.SetToolTip(this.checkBoxAllowReload, "Allow reload in the exam window with F5 or reload button (if displayed)");
-			this.checkBoxAllowReload.UseVisualStyleBackColor = true;
-			this.checkBoxAllowReload.CheckedChanged += new System.EventHandler(this.checkBoxAllowReload_CheckedChanged);
-			// 
-			// checkBoxAllowNavigationNewWindow
-			// 
-			this.checkBoxAllowNavigationNewWindow.AutoSize = true;
-			this.checkBoxAllowNavigationNewWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxAllowNavigationNewWindow.Location = new System.Drawing.Point(259, 19);
-			this.checkBoxAllowNavigationNewWindow.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-			this.checkBoxAllowNavigationNewWindow.Name = "checkBoxAllowNavigationNewWindow";
-			this.checkBoxAllowNavigationNewWindow.Size = new System.Drawing.Size(206, 17);
-			this.checkBoxAllowNavigationNewWindow.TabIndex = 8;
-			this.checkBoxAllowNavigationNewWindow.Text = "Allow navigating in additional windows";
-			this.toolTip1.SetToolTip(this.checkBoxAllowNavigationNewWindow, resources.GetString("checkBoxAllowNavigationNewWindow.ToolTip"));
-			this.checkBoxAllowNavigationNewWindow.UseVisualStyleBackColor = true;
-			this.checkBoxAllowNavigationNewWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowNavigationNewWindow_CheckedChanged);
-			// 
 			// checkBoxAllowAudioCapture
 			// 
 			this.checkBoxAllowAudioCapture.AutoSize = true;
@@ -3926,19 +4097,6 @@ namespace SebWindowsConfig
 			this.checkBoxAllowAudioCapture.UseVisualStyleBackColor = true;
 			this.checkBoxAllowAudioCapture.Visible = false;
 			this.checkBoxAllowAudioCapture.CheckedChanged += new System.EventHandler(this.checkBoxAllowAudioCapture_CheckedChanged);
-			// 
-			// checkBoxShowReloadWarning
-			// 
-			this.checkBoxShowReloadWarning.AutoSize = true;
-			this.checkBoxShowReloadWarning.Location = new System.Drawing.Point(14, 59);
-			this.checkBoxShowReloadWarning.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-			this.checkBoxShowReloadWarning.Name = "checkBoxShowReloadWarning";
-			this.checkBoxShowReloadWarning.Size = new System.Drawing.Size(164, 17);
-			this.checkBoxShowReloadWarning.TabIndex = 5;
-			this.checkBoxShowReloadWarning.Text = "Show reload warning in exam";
-			this.toolTip1.SetToolTip(this.checkBoxShowReloadWarning, "User has to confirm reloading a web page with F5 or reload button");
-			this.checkBoxShowReloadWarning.UseVisualStyleBackColor = true;
-			this.checkBoxShowReloadWarning.CheckedChanged += new System.EventHandler(this.checkBoxShowReloadWarning_CheckedChanged);
 			// 
 			// checkBoxDisableLocalStorage
 			// 
@@ -3958,7 +4116,7 @@ namespace SebWindowsConfig
 			// 
 			// checkBoxRemoveProfile
 			// 
-			this.checkBoxRemoveProfile.Location = new System.Drawing.Point(14, 137);
+			this.checkBoxRemoveProfile.Location = new System.Drawing.Point(14, 66);
 			this.checkBoxRemoveProfile.Name = "checkBoxRemoveProfile";
 			this.checkBoxRemoveProfile.Size = new System.Drawing.Size(481, 36);
 			this.checkBoxRemoveProfile.TabIndex = 6;
@@ -3967,20 +4125,6 @@ namespace SebWindowsConfig
     "eactivated!";
 			this.checkBoxRemoveProfile.UseVisualStyleBackColor = true;
 			this.checkBoxRemoveProfile.CheckedChanged += new System.EventHandler(this.checkBoxRemoveProfile_CheckedChanged);
-			// 
-			// checkBoxAllowBrowsingBackForward
-			// 
-			this.checkBoxAllowBrowsingBackForward.AutoSize = true;
-			this.checkBoxAllowBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(14, 20);
-			this.checkBoxAllowBrowsingBackForward.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-			this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
-			this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(209, 17);
-			this.checkBoxAllowBrowsingBackForward.TabIndex = 4;
-			this.checkBoxAllowBrowsingBackForward.Text = "Allow navigating back/forward in exam";
-			this.toolTip1.SetToolTip(this.checkBoxAllowBrowsingBackForward, resources.GetString("checkBoxAllowBrowsingBackForward.ToolTip"));
-			this.checkBoxAllowBrowsingBackForward.UseVisualStyleBackColor = true;
-			this.checkBoxAllowBrowsingBackForward.CheckedChanged += new System.EventHandler(this.checkBoxAllowBrowsingBackForward_CheckedChanged);
 			// 
 			// checkBoxEnablePlugIns
 			// 
@@ -4059,7 +4203,7 @@ namespace SebWindowsConfig
 			// labelUseSEBWithoutBrowser
 			// 
 			this.labelUseSEBWithoutBrowser.AutoSize = true;
-			this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(55, 435);
+			this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(55, 497);
 			this.labelUseSEBWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.labelUseSEBWithoutBrowser.Name = "labelUseSEBWithoutBrowser";
 			this.labelUseSEBWithoutBrowser.Size = new System.Drawing.Size(436, 13);
@@ -4070,7 +4214,7 @@ namespace SebWindowsConfig
 			// checkBoxUseSebWithoutBrowser
 			// 
 			this.checkBoxUseSebWithoutBrowser.AutoSize = true;
-			this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(38, 415);
+			this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(38, 477);
 			this.checkBoxUseSebWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
 			this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
 			this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(185, 17);
@@ -4098,11 +4242,11 @@ namespace SebWindowsConfig
 			this.checkBoxBlockLinksHTML.Location = new System.Drawing.Point(281, 40);
 			this.checkBoxBlockLinksHTML.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
 			this.checkBoxBlockLinksHTML.Name = "checkBoxBlockLinksHTML";
-			this.checkBoxBlockLinksHTML.Size = new System.Drawing.Size(248, 17);
+			this.checkBoxBlockLinksHTML.Size = new System.Drawing.Size(218, 17);
 			this.checkBoxBlockLinksHTML.TabIndex = 1;
-			this.checkBoxBlockLinksHTML.Text = "block when directing to a different server (Mac)";
-			this.toolTip1.SetToolTip(this.checkBoxBlockLinksHTML, "Hyperlinks which direct to a different host than the one of the current main page" +
-        " will be ignored.");
+			this.checkBoxBlockLinksHTML.Text = "block when directing to a different server";
+			this.toolTip1.SetToolTip(this.checkBoxBlockLinksHTML, "Links which direct to a different host than the one of the current main page will" +
+        " be ignored.");
 			this.checkBoxBlockLinksHTML.UseVisualStyleBackColor = true;
 			this.checkBoxBlockLinksHTML.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksHTML_CheckedChanged);
 			// 
@@ -5727,16 +5871,62 @@ namespace SebWindowsConfig
 			this.applyAndStartSEBToolStripMenuItem.Visible = false;
 			this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
 			// 
-			// checkBoxAllowFind
+			// dataGridViewCheckBoxColumn1
 			// 
-			this.checkBoxAllowFind.AutoSize = true;
-			this.checkBoxAllowFind.Location = new System.Drawing.Point(14, 81);
-			this.checkBoxAllowFind.Name = "checkBoxAllowFind";
-			this.checkBoxAllowFind.Size = new System.Drawing.Size(106, 17);
-			this.checkBoxAllowFind.TabIndex = 15;
-			this.checkBoxAllowFind.Text = "Allow text search";
-			this.checkBoxAllowFind.UseVisualStyleBackColor = true;
-			this.checkBoxAllowFind.CheckedChanged += new System.EventHandler(this.checkBoxAllowFind_CheckedChanged);
+			this.dataGridViewCheckBoxColumn1.HeaderText = "Active";
+			this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+			this.dataGridViewCheckBoxColumn1.Width = 80;
+			// 
+			// dataGridViewComboBoxColumn1
+			// 
+			this.dataGridViewComboBoxColumn1.HeaderText = "OS";
+			this.dataGridViewComboBoxColumn1.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
+			this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
+			this.dataGridViewComboBoxColumn1.Width = 120;
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this.dataGridViewTextBoxColumn1.HeaderText = "Executable";
+			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+			this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.dataGridViewTextBoxColumn1.Width = 450;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn2.HeaderText = "Description";
+			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+			this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
+			// Active
+			// 
+			this.Active.HeaderText = "Active";
+			this.Active.Name = "Active";
+			this.Active.Width = 80;
+			// 
+			// OS
+			// 
+			this.OS.HeaderText = "OS";
+			this.OS.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
+			this.OS.Name = "OS";
+			// 
+			// Executable
+			// 
+			this.Executable.HeaderText = "Executable";
+			this.Executable.Name = "Executable";
+			this.Executable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.Executable.Width = 450;
+			// 
+			// Title
+			// 
+			this.Title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.Title.HeaderText = "Title";
+			this.Title.Name = "Title";
+			this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
 			// SebWindowsConfigForm
 			// 
@@ -5805,6 +5995,10 @@ namespace SebWindowsConfig
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewProhibitedProcesses)).EndInit();
 			this.tabPageExam.ResumeLayout(false);
 			this.tabPageExam.PerformLayout();
+			this.groupBox17.ResumeLayout(false);
+			this.groupBox17.PerformLayout();
+			this.groupBox15.ResumeLayout(false);
+			this.groupBox15.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.groupBox9.ResumeLayout(false);
@@ -5817,6 +6011,10 @@ namespace SebWindowsConfig
 			this.tabPageDownUploads.PerformLayout();
 			this.tabPageBrowser.ResumeLayout(false);
 			this.tabPageBrowser.PerformLayout();
+			this.groupBox19.ResumeLayout(false);
+			this.groupBox19.PerformLayout();
+			this.groupBox18.ResumeLayout(false);
+			this.groupBox18.PerformLayout();
 			this.groupBox14.ResumeLayout(false);
 			this.groupBox14.PerformLayout();
 			this.groupBox13.ResumeLayout(false);
@@ -6211,14 +6409,6 @@ namespace SebWindowsConfig
 		private System.Windows.Forms.Label PermittedProcessOriginalNameLabel;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn ArgumentActive;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ArgumentParameter;
-		private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-		private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-		private System.Windows.Forms.DataGridViewCheckBoxColumn Active;
-		private System.Windows.Forms.DataGridViewComboBoxColumn OS;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Executable;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Title;
 		private System.Windows.Forms.TextBox textBoxProhibitedProcessOriginalName;
 		private System.Windows.Forms.Label ProhibitedProcessOriginalNameLabel;
         private System.Windows.Forms.CheckBox checkBoxShowReloadWarningNewWindow;
@@ -6272,6 +6462,29 @@ namespace SebWindowsConfig
 		private System.Windows.Forms.GroupBox groupBoxSebService;
 		private System.Windows.Forms.CheckBox checkBoxAllowCustomDownloadLocation;
 		private System.Windows.Forms.CheckBox checkBoxAllowFind;
+		private System.Windows.Forms.GroupBox groupBox15;
+		private System.Windows.Forms.TextBox textBoxReconfigurationUrl;
+		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.CheckBox checkBoxAllowReconfiguration;
+		private System.Windows.Forms.Label label22;
+		private System.Windows.Forms.CheckBox checkBoxResetOnQuitUrl;
+		private System.Windows.Forms.GroupBox groupBox17;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.CheckBox checkBoxUseStartUrlQuery;
+		private System.Windows.Forms.GroupBox groupBox19;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.ComboBox comboBoxUrlPolicyNewWindow;
+		private System.Windows.Forms.GroupBox groupBox18;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.ComboBox comboBoxUrlPolicyMainWindow;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn Active;
+		private System.Windows.Forms.DataGridViewComboBoxColumn OS;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Executable;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+		private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 	}
 }
 

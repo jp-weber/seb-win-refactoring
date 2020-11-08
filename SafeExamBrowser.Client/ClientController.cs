@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using SafeExamBrowser.Applications.Contracts;
 using SafeExamBrowser.Browser.Contracts;
@@ -330,7 +331,31 @@ namespace SafeExamBrowser.Client
 
 		private void Browser_ConfigurationDownloadRequested(string fileName, DownloadEventArgs args)
 		{
-			if (Settings.Security.AllowReconfiguration)
+			var allow = false;
+			var hasQuitPassword = !string.IsNullOrWhiteSpace(Settings.Security.QuitPasswordHash);
+			var hasUrl = !string.IsNullOrWhiteSpace(Settings.Security.ReconfigurationUrl);
+
+			if (hasQuitPassword)
+			{
+				if (hasUrl)
+				{
+					var expression = Regex.Escape(Settings.Security.ReconfigurationUrl).Replace(@"\*", ".*");
+					var regex = new Regex($"^{expression}$", RegexOptions.IgnoreCase);
+					var sebUrl = args.Url.Replace(Uri.UriSchemeHttp, context.AppConfig.SebUriScheme).Replace(Uri.UriSchemeHttps, context.AppConfig.SebUriSchemeSecure);
+
+					allow = Settings.Security.AllowReconfiguration && (regex.IsMatch(args.Url) || regex.IsMatch(sebUrl));
+				}
+				else
+				{
+					allow = Settings.Security.AllowReconfiguration;
+				}
+			}
+			else
+			{
+				allow = Settings.ConfigurationMode == ConfigurationMode.ConfigureClient || Settings.Security.AllowReconfiguration;
+			}
+
+			if (allow)
 			{
 				args.AllowDownload = true;
 				args.Callback = Browser_ConfigurationDownloadFinished;
@@ -347,6 +372,31 @@ namespace SafeExamBrowser.Client
 			{
 				args.AllowDownload = false;
 				logger.Info($"Denied download request for configuration file '{fileName}'.");
+			}
+		}
+
+		private void Browser_ConfigurationDownloadFinished(bool success, string url, string filePath = null)
+		{
+			if (success)
+			{
+				var communication = runtime.RequestReconfiguration(filePath, url);
+
+				if (communication.Success)
+				{
+					logger.Info($"Sent reconfiguration request for '{filePath}' to the runtime.");
+				}
+				else
+				{
+					logger.Error($"Failed to communicate reconfiguration request for '{filePath}'!");
+					messageBox.Show(TextKey.MessageBox_ReconfigurationError, TextKey.MessageBox_ReconfigurationErrorTitle, icon: MessageBoxIcon.Error, parent: splashScreen);
+					splashScreen.Hide();
+				}
+			}
+			else
+			{
+				logger.Error($"Failed to download configuration file '{filePath}'!");
+				messageBox.Show(TextKey.MessageBox_ConfigurationDownloadError, TextKey.MessageBox_ConfigurationDownloadErrorTitle, icon: MessageBoxIcon.Error, parent: splashScreen);
+				splashScreen.Hide();
 			}
 		}
 
@@ -371,31 +421,6 @@ namespace SafeExamBrowser.Client
 		{
 			logger.Info("Attempting to shutdown as requested by the browser...");
 			TryRequestShutdown();
-		}
-
-		private void Browser_ConfigurationDownloadFinished(bool success, string filePath = null)
-		{
-			if (success)
-			{
-				var communication = runtime.RequestReconfiguration(filePath);
-
-				if (communication.Success)
-				{
-					logger.Info($"Sent reconfiguration request for '{filePath}' to the runtime.");
-				}
-				else
-				{
-					logger.Error($"Failed to communicate reconfiguration request for '{filePath}'!");
-					messageBox.Show(TextKey.MessageBox_ReconfigurationError, TextKey.MessageBox_ReconfigurationErrorTitle, icon: MessageBoxIcon.Error, parent: splashScreen);
-					splashScreen.Hide();
-				}
-			}
-			else
-			{
-				logger.Error($"Failed to download configuration file '{filePath}'!");
-				messageBox.Show(TextKey.MessageBox_ConfigurationDownloadError, TextKey.MessageBox_ConfigurationDownloadErrorTitle, icon: MessageBoxIcon.Error, parent: splashScreen);
-				splashScreen.Hide();
-			}
 		}
 
 		private void ClientHost_ExamSelectionRequested(ExamSelectionRequestEventArgs args)
@@ -566,30 +591,38 @@ namespace SafeExamBrowser.Client
 
 		private void SystemMonitor_SessionSwitched()
 		{
+			var allow = !Settings.Service.IgnoreService && (!Settings.Service.DisableUserLock || !Settings.Service.DisableUserSwitch);
 			var message = text.Get(TextKey.LockScreen_UserSessionMessage);
 			var title = text.Get(TextKey.LockScreen_Title);
 			var continueOption = new LockScreenOption { Text = text.Get(TextKey.LockScreen_UserSessionContinueOption) };
 			var terminateOption = new LockScreenOption { Text = text.Get(TextKey.LockScreen_UserSessionTerminateOption) };
 
-			logger.Warn("Detected user session switch!");
-
-			if (!sessionLocked)
+			if (allow)
 			{
-				sessionLocked = true;
-
-				var result = ShowLockScreen(message, title, new[] { continueOption, terminateOption });
-
-				if (result.OptionId == terminateOption.Id)
-				{
-					logger.Info("Attempting to shutdown as requested by the user...");
-					TryRequestShutdown();
-				}
-
-				sessionLocked = false;
+				logger.Info("Detected user session switch, but user lock and/or user switch are allowed.");
 			}
 			else
 			{
-				logger.Info("Lock screen is already active.");
+				logger.Warn("Detected user session switch!");
+
+				if (!sessionLocked)
+				{
+					sessionLocked = true;
+
+					var result = ShowLockScreen(message, title, new[] { continueOption, terminateOption });
+
+					if (result.OptionId == terminateOption.Id)
+					{
+						logger.Info("Attempting to shutdown as requested by the user...");
+						TryRequestShutdown();
+					}
+
+					sessionLocked = false;
+				}
+				else
+				{
+					logger.Info("Lock screen is already active.");
+				}
 			}
 		}
 
