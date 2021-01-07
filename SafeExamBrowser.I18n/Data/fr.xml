@@ -1,550 +1,550 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Text>
     <Entry key="AboutWindow_LicenseInfo">
-        Diese Applikation unterliegt den Auflagen der Mozilla Public License, Version 2.0. Safe Exam Browser benutzt die folgenden Frameworks und Drittanbieter-Bibliotheken:
+        Cette application est soumise aux termes de la licence publique Mozilla, version 2.0. Safe Exam Browser utilise les cadres et les bibliothèques tierces suivants:
     </Entry>
     <Entry key="AboutWindow_Title">
-        Informationen zu Version &amp; Lizenz
+        Version &amp; Information de licence
     </Entry>
     <Entry key="Browser_BlockedContentMessage">
-        Inhalt blockiert
+        Contenu bloqué
     </Entry>
     <Entry key="Browser_BlockedPageButton">
-        Zurück zur vorherigen Seite
+        Retour à la page précédente
     </Entry>
     <Entry key="Browser_BlockedPageMessage">
-        Zugriff auf diese Seite ist nicht erlaubt gemäss der aktiven Konfiguration.
+        L'accès à cette page n'est pas autorisé par la configuration actuelle.
     </Entry>
     <Entry key="Browser_BlockedPageTitle">
-        Seite blockiert
+        Page bloquée
     </Entry>
     <Entry key="Browser_LoadErrorMessage">
-        Beim Laden der Seite "%%URL%%" ist folgender Fehler aufgetreten:
+        Une erreur s'est produite lors du chargement de la page "%%URL%%":
     </Entry>
     <Entry key="Browser_LoadErrorTitle">
-        Seiten-Ladefehler
+        Erreur de chargement de la page
     </Entry>
     <Entry key="Browser_Name">
-        Browser
+        Navigateur
     </Entry>
     <Entry key="Browser_Tooltip">
-        Browser Applikation
+        Application du navigateur
     </Entry>
     <Entry key="BrowserWindow_DeveloperConsoleMenuItem">
-        Entwickler-Konsole
+        Console de développement
     </Entry>
     <Entry key="BrowserWindow_Downloading">
-        Lade herunter...
+        Chargement…
     </Entry>
     <Entry key="BrowserWindow_DownloadCancelled">
-        Abgebrochen.
+        Annulé.
     </Entry>
     <Entry key="BrowserWindow_DownloadComplete">
-        Heruntergeladen.
+        Téléchargé.
     </Entry>
     <Entry key="BrowserWindow_FindCaseSensitive">
-        Gross-/Kleinschreibung beachten
+        Recherche sensible à la casse
     </Entry>
     <Entry key="BrowserWindow_FindMenuItem">
-        Seite durchsuchen...
+        Rechercher dans la page...
     </Entry>
     <Entry key="BrowserWindow_ZoomMenuItem">
-        Seiten-Zoom
+        Zoom de la page
     </Entry>
     <Entry key="Build">
         Build
     </Entry>
     <Entry key="ExamSelectionDialog_Cancel">
-        Abbrechen
+        Annuler
     </Entry>
     <Entry key="ExamSelectionDialog_Message">
-        Bitte wählen Sie eine der verfügbaren SEB-Server-Prüfungen:
+        Veuillez sélectionner l'un des examens disponibles sur le serveur SEB :
     </Entry>
     <Entry key="ExamSelectionDialog_Select">
-        Auswählen
+        Selection
     </Entry>
     <Entry key="ExamSelectionDialog_Title">
-        SEB-Server-Prüfungen
+        Examens SEB-Server
     </Entry>
     <Entry key="FileSystemDialog_Cancel">
-        Abbrechen
+        Annuler
     </Entry>
     <Entry key="FileSystemDialog_LoadError">
-        Fehler beim Laden der Daten!
+        Echec du chargement des données !
     </Entry>
     <Entry key="FileSystemDialog_Loading">
-        Lade...
+        Chargement …
     </Entry>
     <Entry key="FileSystemDialog_OpenFileMessage">
-        Bitte Datei zum Öffnen auswählen.
+        Veuillez sélectionner un fichier à ouvrir.
     </Entry>
     <Entry key="FileSystemDialog_OpenFolderMessage">
-        Bitte Ordner auswählen.
+        Veuillez sélectionner un dossier.
     </Entry>
     <Entry key="FileSystemDialog_OverwriteWarning">
-        Die ausgewählte Datei existiert bereits! Wollen Sie diese wirklich überschreiben?
+        Le fichier sélectionné existe déjà ! Voulez-vous vraiment le remplacer ?
     </Entry>
     <Entry key="FileSystemDialog_OverwriteWarningTitle">
-        Überschreiben?
+        Remplacer ?
     </Entry>
     <Entry key="FileSystemDialog_SaveAs">
-        Speichern als:
+        Enregistrer sous :
     </Entry>
     <Entry key="FileSystemDialog_SaveFileMessage">
-        Bitte wählen Sie einen Ort zum Speichern der Datei.
+        Veuillez sélectionner un emplacement pour enregistrer le fichier.
     </Entry>
     <Entry key="FileSystemDialog_SaveFolderMessage">
-        Bitte wählen Sie einen Ort zum Speichern des Ordners.
+        Veuillez sélectionner un emplacement pour sauvegarder le dossier.
     </Entry>
     <Entry key="FileSystemDialog_Select">
-        Auswählen
+        Selectionnez
     </Entry>
     <Entry key="FileSystemDialog_Title">
-        Dateisystem-Zugriff
+        Accès au système de fichiers
     </Entry>
     <Entry key="FolderDialog_ApplicationLocation">
-        Applikation "%%NAME%%" konnte nicht gefunden werden auf dem System! Bitte geben Sie an, wo die ausführbare Datei "%%EXECUTABLE%%" liegt.
+        L'application "%%NAME%%" n'a pas pu être trouvée sur le système ! Veuillez localiser le dossier contenant l'exécutable principal "%%EXECUTABLE%%".
     </Entry>
     <Entry key="LockScreen_ApplicationsAllowOption">
-        Verbotene Applikationen temporär erlauben. Dies gilt nur für die momentan laufenden Instanzen der aktuellen Sitzung!
+        Autoriser temporairement les applications figurant sur la liste noire. Cela ne s'applique qu'aux instances et à la session en cours !
     </Entry>
     <Entry key="LockScreen_ApplicationsMessage">
-        Die unten aufgelisteten, verbotenen Applikationen wurden gestartet und konnten nicht automatisch beendet werden! Bitte wählen Sie eine der verfügbaren Optionen aus und geben Sie das korrekte Passwort ein, um SEB zu entsperren.
+        Les applications sur liste noire énumérées ci-dessous ont été lancées et n’ont pas pu être automatiquement supprimées ! Afin de débloquer SEB, veuillez sélectionner l'une des options disponibles et entrer le mot de passe de déblocage.
     </Entry>
     <Entry key="LockScreen_ApplicationsTerminateOption">
-        Safe Exam Browser beenden. WARNUNG: Sie werden keine Möglichkeit haben, Daten zu speichern oder weitere Aktionen auszuführen, SEB wird sofort beendet!
+        Terminer Safe Exam Browser. AVERTISSEMENT : Il n'y aura pas de possibilité de sauvegarder les données ou d'effectuer d'autres actions, l'arrêt sera déclenché immédiatement !
     </Entry>
     <Entry key="LockScreen_Title">
-        SEB GESPERRT
+        SEB VEROUILLE
     </Entry>
     <Entry key="LockScreen_UnlockButton">
-        Entsperren
+        Dévérouiller
     </Entry>
     <Entry key="LockScreen_UserSessionContinueOption">
-        Safe Exam Browser entsperren.
+        Dévérouiller Safe Exam Browser.
     </Entry>
     <Entry key="LockScreen_UserSessionMessage">
-        Der aktive Benutzer hat sich geändert oder der Computer wurde gesperrt! Bitte wählen Sie eine der verfügbaren Optionen aus und geben Sie das korrekte Passwort ein, um SEB zu entsperren.
+        L'utilisateur actif a changé ou l'ordinateur a été verrouillé ! Afin de déverrouiller SEB, veuillez sélectionner une des options disponibles et entrer le mot de passe de déverrouillage.
     </Entry>
     <Entry key="LockScreen_UserSessionTerminateOption">
-        Safe Exam Browser beenden. WARNUNG: Sie werden keine Möglichkeit haben, Daten zu speichern oder weitere Aktionen auszuführen, SEB wird sofort beendet!
+        Terminer Safe Exam Browser. AVERTISSEMENT : Il n'y aura pas de possibilité de sauvegarder les données ou d'effectuer d'autres actions, l'arrêt sera déclenché immédiatement !
     </Entry>
     <Entry key="LogWindow_AlwaysOnTop">
-        Immer zuoberst
+        Toujours au premier plan
     </Entry>
     <Entry key="LogWindow_AutoScroll">
-        Inhalt automatisch scrollen
+        Défilement automatique du contenu
     </Entry>
     <Entry key="LogWindow_Title">
-        Applikations-Protokoll
+        Journal de l’application
     </Entry>
     <Entry key="MessageBox_ApplicationAutoTerminationQuestion">
-        Die unten aufgelisteten Applikationen müssen beendet werden bevor eine neue Sitzung gestartet werden kann. Sollen diese nun automatisch beendet werden?
+        Les applications énumérées ci-dessous doivent être terminées avant qu'une nouvelle session puisse être lancée. Souhaitez-vous les clôturer automatiquement maintenant ?
     </Entry>
     <Entry key="MessageBox_ApplicationAutoTerminationQuestionTitle">
-        Laufende Applikationen erkannt
+        Applications en cours d'exécution détectées
     </Entry>
     <Entry key="MessageBox_ApplicationAutoTerminationDataLossWarning">
-        WARNUNG: Ungespeicherte Applikationsdaten können möglicherweise verloren gehen!
+        AVERTISSEMENT : les données des applications non sauvegardées peuvent être perdues !
     </Entry>
     <Entry key="MessageBox_ApplicationError">
-        Ein schwerwiegender Fehler ist aufgetreten! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen. SEB wird sich nun beenden...
+        Une erreur irrémédiable s'est produite ! Veuillez consulter les fichiers journaux pour plus d'informations. SEB va maintenant fermer...
     </Entry>
     <Entry key="MessageBox_ApplicationErrorTitle">
-        Applikations-Fehler
+        Erreur de l’application
     </Entry>
     <Entry key="MessageBox_ApplicationInitializationFailure">
-        Applikation %%NAME%% konnte nicht initialisiert werden und wird darum nicht verfügbar sein in der neuen Sitzung! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen.
+        L'application %%NAME%% n'a pas pu être initialisée et ne sera donc pas disponible pour la nouvelle session ! Veuillez consulter les fichiers journaux pour plus d'informations.
     </Entry>
     <Entry key="MessageBox_ApplicationInitializationFailureTitle">
-        Applikations-Initialisierung fehlgeschlagen
+        Échec de l'initialisation de l’application
     </Entry>
     <Entry key="MessageBox_ApplicationNotFound">
-        Applikation %%NAME%% konnte nicht gefunden werden auf dem System und wird darum nicht verfügbar sein in der neuen Sitzung! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen.
+        L’application %%NAME%% n'a pas pu être trouvée sur le système et ne sera donc pas disponible pour la nouvelle session ! Veuillez consulter les fichiers journaux pour plus d'informations.
     </Entry>
     <Entry key="MessageBox_ApplicationNotFoundTitle">
-        Applikation nicht gefunden
+        Application non-trouvée
     </Entry>
     <Entry key="MessageBox_ApplicationTerminationFailure">
-        Die unten aufgelisteten Applikationen konnten nicht beendet werden! Bitte beenden Sie diese manuell und probieren Sie es erneut...
+        Les applications énumérées ci-dessous n'ont pas pu être terminées ! Veuillez les terminer manuellement et réessayer...
     </Entry>
     <Entry key="MessageBox_ApplicationTerminationFailureTitle">
-        Automatisches Beenden fehlgeschlagen
+        Échec de la clôture automatique
     </Entry>
     <Entry key="MessageBox_BrowserHomeQuestion">
-        Sind Sie sicher? (Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)
+        Etes-vous sûr ? (Cette fonction ne vous déconnecte pas si vous êtes connecté sur un site web)
     </Entry>
     <Entry key="MessageBox_BrowserHomeQuestionTitle">
-        Zurück zum Start
+        Retour au début
     </Entry>
     <Entry key="MessageBox_BrowserNavigationBlocked">
-        Zugriff auf "%%URL%%" ist gemäss der aktiven Konfiguration nicht erlaubt.
+        L'accès à "%%URL%%" n'est pas autorisé par la configuration actuelle.
     </Entry>
     <Entry key="MessageBox_BrowserNavigationBlockedTitle">
-        Seite blockiert
+        Page bloquée
     </Entry>
     <Entry key="MessageBox_BrowserQuitUrlConfirmation">
-        Die Browser-Applikation hat eine Quit-URL erkannt! Möchten Sie SEB nun beenden?
+        L'application du navigateur a détecté une URL de fin ! Vous souhaitez mettre fin à SEB maintenant ?
     </Entry>
     <Entry key="MessageBox_BrowserQuitUrlConfirmationTitle">
-        Quit-URL erkannt
+        URL de fin détectée
     </Entry>
     <Entry key="MessageBox_CancelButton">
-        Abbrechen
+        Annuler
     </Entry>
     <Entry key="MessageBox_ClientConfigurationError">
-        Die Einrichtung der lokalen Konfiguration ist gescheitert! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen. SEB wird sich nun beenden...
+        La configuration du client local a échoué ! Veuillez consulter les fichiers journaux pour plus d'informations. SEB va maintenant se fermer....
     </Entry>
     <Entry key="MessageBox_ClientConfigurationErrorTitle">
-        Konfiguration gescheitert
+        Erreur de configuration
     </Entry>
     <Entry key="MessageBox_ClientConfigurationQuestion">
-        Die lokale Konfiguration wurde gespeichert und wird benutzt wenn Sie SEB das nächste Mal starten. Möchten Sie nun beenden?
+        La configuration du client a été enregistrée et sera utilisée lors du prochain démarrage de SEB. Vous voulez quitter maintenant ?
     </Entry>
     <Entry key="MessageBox_ClientConfigurationQuestionTitle">
-        Konfiguration erfolgreich
+        Configuration réussie
     </Entry>
     <Entry key="MessageBox_ConfigurationDownloadError">
-        Konnte neue Konfiguration nicht herunterladen. Bitte versuchen Sie es erneut oder kontaktieren Sie technischen Support.
+        Le téléchargement de la nouvelle configuration a échoué. Veuillez réessayer ou contacter le support technique..
     </Entry>
     <Entry key="MessageBox_ConfigurationDownloadErrorTitle">
-        Fehler beim Herunterladen
+        Erreur de téléchargement
     </Entry>
     <Entry key="MessageBox_InvalidConfigurationData">
-        Die Konfigurations-Ressource "%%URI%%" enthält ungültige Daten!
+        La ressource de configuration "%%URI%%" contient des données non valides !
     </Entry>
     <Entry key="MessageBox_InvalidConfigurationDataTitle">
-        Konfigurations-Fehler
+        Erreur de configuration
     </Entry>
     <Entry key="MessageBox_InvalidHomePassword">
-        Das eingegebene Passwort ist nicht korrekt.
+        Le mot de passe que vous avez saisi est incorrect.
     </Entry>
     <Entry key="MessageBox_InvalidHomePasswordTitle">
-        Ungültiges Passwort
+        Mot de passe erroné
     </Entry>
     <Entry key="MessageBox_InvalidPasswordError">
-        Sie haben 5 mal das falsche Passwort eingegeben. SEB wird sich nun beenden...
+        Vous n'avez pas réussi à entrer le bon mot de passe en 5 tentatives. SEB va maintenant fermer...
     </Entry>
     <Entry key="MessageBox_InvalidPasswordErrorTitle">
-        Ungültiges Passwort
+        Mot de passe erroné
     </Entry>
     <Entry key="MessageBox_InvalidQuitPassword">
-        SEB kann nur durch Eingabe des korrekten Passworts beendet werden.
+        SEB ne peut être arrêté qu'en saisissant le mot de passe correct pour l'arrêt.
     </Entry>
     <Entry key="MessageBox_InvalidQuitPasswordTitle">
-        Ungültiges Quit-Passwort
+        Mot de passe d’arrêt erroné
     </Entry>
     <Entry key="MessageBox_InvalidUnlockPassword">
-        SEB kann nur durch Eingabe des korrekten Passworts entsperrt werden.
+        SEB ne peut être déverrouillé qu'en entrant le mot de passe correct.
     </Entry>
     <Entry key="MessageBox_InvalidUnlockPasswordTitle">
-        Ungültiges Entsperrungs-Passwort
+        Mot de passe de déverrouillage erroné
     </Entry>
     <Entry key="MessageBox_NoButton">
-        Nein
+        Non
     </Entry>
     <Entry key="MessageBox_NotSupportedConfigurationResource">
-        Die Konfigurations-Ressource "%%URI%%" wird nicht unterstützt!
+        La ressource de configuration "%%URI%%" n'est pas supportée !
     </Entry>
     <Entry key="MessageBox_NotSupportedConfigurationResourceTitle">
-        Konfigurations-Fehler
+        Erreur de configuration
     </Entry>
     <Entry key="MessageBox_OkButton">
         OK
     </Entry>
     <Entry key="MessageBox_Quit">
-        Möchten Sie SEB beenden?
+        Voulez-vous quitter SEB ?
     </Entry>
     <Entry key="MessageBox_QuitTitle">
-        Beenden?
+        Quitter ?
     </Entry>
     <Entry key="MessageBox_QuitError">
-        Der Client konnte die Anfrage zum Beenden nicht an die Runtime senden!
+        Le client n'a pas réussi à communiquer la demande d'arrêt au serveur d'exécution !
     </Entry>
     <Entry key="MessageBox_QuitErrorTitle">
-        Fehler beim Beenden
+        Erreur de sortie
     </Entry>
     <Entry key="MessageBox_ReconfigurationDenied">
-        Es ist Ihnen nicht erlaubt, SEB zu rekonfigurieren.
+        Vous n'êtes pas autorisé à reconfigurer SEB.
     </Entry>
     <Entry key="MessageBox_ReconfigurationDeniedTitle">
-        Rekonfiguration abgelehnt
+        Reconfiguration refusée
     </Entry>
     <Entry key="MessageBox_ReconfigurationError">
-        Der Client konnte die Anfrage zur Rekonfiguration nicht an die Runtime senden!
+        Le client n'a pas réussi à communiquer la demande de reconfiguration au serveur !
     </Entry>
     <Entry key="MessageBox_ReconfigurationErrorTitle">
-        Fehler bei der Rekonfiguration
+        Erreur de reconfiguration
     </Entry>
     <Entry key="MessageBox_ReloadConfirmation">
-        Möchten Sie die aktuelle Seite neu laden?
+        Souhaitez-vous recharger la page actuelle ?
     </Entry>
     <Entry key="MessageBox_ReloadConfirmationTitle">
-        Neu laden?
+        Recharger ?
     </Entry>
     <Entry key="MessageBox_RemoteSessionNotAllowed">
-        Das System scheint in einer Remote-Sitzung zu laufen. Die ausgewählte Konfiguration erlaubt es nicht, SEB in einer Remote-Sitzung auszuführen.
+        Le système semble s'exécuter dans une session à distance. La configuration sélectionnée ne permet pas l'exécution de SEB dans une session à distance.
     </Entry>
     <Entry key="MessageBox_RemoteSessionNotAllowedTitle">
-        Remote-Sitzung erkannt
+        Session distante détectée
     </Entry>
     <Entry key="MessageBox_ServiceUnavailableError">
-        Fehler beim Initialisieren des SEB-Service! SEB wird sich nun beenden da der Service als obligatorisch konfiguriert ist.
+        Le service SEB n'a pas été initialisé ! Le service SEB va maintenant se terminer puisque le service obligatoire.
     </Entry>
     <Entry key="MessageBox_ServiceUnavailableErrorTitle">
-        Service nicht verfügbar
+        Service indisponible
     </Entry>
     <Entry key="MessageBox_ServiceUnavailableWarning">
-        Fehler beim Initialisieren des SEB-Service! SEB wird mit der Initialisierung fortfahren da der Service als optional konfiguriert ist.
+        Le service SEB n'a pas été initialisé. SEB poursuivra l'initialisation puisque le service est configuré pour être optionnel.
     </Entry>
     <Entry key="MessageBox_ServiceUnavailableWarningTitle">
-        Service nicht verfügbar
+        Service indisponible
     </Entry>
     <Entry key="MessageBox_SessionStartError">
-        SEB konnte keine neue Sitzung starten! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen.
+        Le SEB n'a pas réussi à démarrer une nouvelle session ! Veuillez consulter les fichiers journaux pour plus d'informations.
     </Entry>
     <Entry key="MessageBox_SessionStartErrorTitle">
-        Fehler beim Starten der Sitzung
+        Erreur de démarrage de session
     </Entry>
     <Entry key="MessageBox_ShutdownError">
-        Beim Beenden ist ein unerwarteter Fehler aufgetreten! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen.
+        Une erreur inattendue s'est produite lors de la procédure d'arrêt ! Veuillez consulter les fichiers journaux pour plus d'informations.
     </Entry>
     <Entry key="MessageBox_ShutdownErrorTitle">
-        Fehler beim Beenden
+        Erreur de fermeture
     </Entry>
     <Entry key="MessageBox_StartupError">
-        Beim Starten ist ein unerwarteter Fehler aufgetreten! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen.
+        Une erreur inattendue s'est produite lors de la procédure de démarrage ! Veuillez consulter les fichiers journaux pour plus d'informations.
     </Entry>
     <Entry key="MessageBox_StartupErrorTitle">
-        Fehler beim Starten
+        Erreur de démarrage
     </Entry>
     <Entry key="MessageBox_UnexpectedConfigurationError">
-        Beim Laden der Konfigurations-Ressource "%%URI%%" ist ein unerwarteter Fehler aufgetreten! Bitte konsultieren Sie das Applikations-Protokoll für mehr Informationen.
+        Une erreur inattendue s'est produite en essayant de charger la ressource de configuration "%%URI%%" ! Veuillez consulter les fichiers journaux pour plus d'informations.
     </Entry>
     <Entry key="MessageBox_UnexpectedConfigurationErrorTitle">
-        Konfigurations-Fehler
+        Erreur de configuration
     </Entry>
     <Entry key="MessageBox_VirtualMachineNotAllowed">
-        Dieser Computer scheint eine virtuelle Maschine zu sein. Die ausgewählte Konfiguration erlaubt es nicht, SEB in einer virtuellen Maschine auszuführen.
+        Cet ordinateur semble être une machine virtuelle. La configuration sélectionnée ne permet pas à SEB de fonctionner dans une machine virtuelle.
     </Entry>
     <Entry key="MessageBox_VirtualMachineNotAllowedTitle">
-        Virtuelle Maschine erkannt
+        Machine virtuelle détectée
     </Entry>
     <Entry key="MessageBox_YesButton">
-        Ja
+        Oui
     </Entry>
     <Entry key="Notification_AboutTooltip">
-        Informationen über SEB
+        Informations à propos de SEB
     </Entry>
     <Entry key="Notification_LogTooltip">
-        Applikations-Protokoll
+        Journal d’application
     </Entry>
     <Entry key="OperationStatus_CloseRuntimeConnection">
-        Schliesse Verbindung zur Runtime
+        Fermeture de la connexion
     </Entry>
     <Entry key="OperationStatus_EmptyClipboard">
-        Lösche Zwischenablage
+        Vidage du presse-papiers
     </Entry>
     <Entry key="OperationStatus_FinalizeApplications">
-        Beende Applikationen
+        Finalisation des applications
     </Entry>
     <Entry key="OperationStatus_FinalizeServer">
-        Finalisiere SEB-Server
+        Finalisation du serveur SEB
     </Entry>
     <Entry key="OperationStatus_FinalizeServiceSession">
-        Beende Service-Sitzung
+        Finalisation des services de la session
     </Entry>
     <Entry key="OperationStatus_FinalizeSystemEvents">
-        Finalisiere System-Ereignisse
+        Finalisation des événements système
     </Entry>
     <Entry key="OperationStatus_InitializeApplications">
-        Initialisiere Applikationen
+        Initialisation des applications
     </Entry>
     <Entry key="OperationStatus_InitializeBrowser">
-        Initialisiere Browser
+        Initialisation du navigateur
     </Entry>
     <Entry key="OperationStatus_InitializeConfiguration">
-        Initialisiere Konfiguration
+        Initialisation de la configuration
     </Entry>
     <Entry key="OperationStatus_InitializeKioskMode">
-        Initialisiere Kiosk-Modus
+        Initialisation du mode kiosque
     </Entry>
     <Entry key="OperationStatus_InitializeRuntimeConnection">
-        Initialisiere Verbindung zur Runtime
+        Initialisation de la connexion d'exécution
     </Entry>
     <Entry key="OperationStatus_InitializeServer">
-        Initialisiere SEB-Server
+        Initialisation du serveur SEB
     </Entry>
     <Entry key="OperationStatus_InitializeServiceSession">
-        Initialisiere Service-Sitzung
+        Initialisation du service de session
     </Entry>
     <Entry key="OperationStatus_InitializeSession">
-        Initialisiere neue Sitzung
+        Initialisation d’une nouvelle session
     </Entry>
     <Entry key="OperationStatus_InitializeShell">
-        Initialisiere Benutzeroberfläche
+        Initialisation de l’interface utilisateur
     </Entry>
     <Entry key="OperationStatus_InitializeSystemEvents">
-        Initialisiere System-Ereignisse
+        Initialisation des événements système
     </Entry>
     <Entry key="OperationStatus_InitializeWorkingArea">
-        Initialisiere Arbeitsbereich
+        Initialisation de l’espace de travail
     </Entry>
     <Entry key="OperationStatus_RestartCommunicationHost">
-        Starte Kommunikations-Host neu
+        Redémarrage de l'hôte de communication
     </Entry>
     <Entry key="OperationStatus_RestoreWorkingArea">
-        Stelle Arbeitsbereich wieder her
+        Restauration de l’espace de travail
     </Entry>
     <Entry key="OperationStatus_RevertKioskMode">
-        Beende Kiosk-Modus
+        Revenir au mode kiosque
     </Entry>
     <Entry key="OperationStatus_StartClient">
-        Starte Client
+        Démarrage du client
     </Entry>
     <Entry key="OperationStatus_StartCommunicationHost">
-        Starte Kommunikations-Host
+        Démarrage de l'hôte de communication
     </Entry>
     <Entry key="OperationStatus_StartKeyboardInterception">
-        Starte Tastatur-Überwachung
+        Démarrage de la surveillance du clavier
     </Entry>
     <Entry key="OperationStatus_StartMouseInterception">
-        Starte Maus-Überwachung
+        Démarrage de la surveillance de la souris
     </Entry>
     <Entry key="OperationStatus_StopClient">
-        Beende Client
+        Arrêt du client
     </Entry>
     <Entry key="OperationStatus_StopCommunicationHost">
-        Beende Kommunikations-Host
+        Arrêt de l'hôte de communication
     </Entry>
     <Entry key="OperationStatus_StopKeyboardInterception">
-        Beende Tastatur-Überwachung
+        Arrêt de la surveillance du clavier
     </Entry>
     <Entry key="OperationStatus_StopMouseInterception">
-        Beende Maus-Überwachung
+        Arrêt de la surveillance de la souris
     </Entry>
     <Entry key="OperationStatus_TerminateBrowser">
-        Beende Browser
+        Arrêt du navigateur
     </Entry>
     <Entry key="OperationStatus_TerminateShell">
-        Beende Benutzeroberfläche
+        Arrêt de l’interface utilisateur
     </Entry>
     <Entry key="OperationStatus_ValidateRemoteSessionPolicy">
-        Validiere Richtlinie für Remote-Sitzungen
+        Validation de la directive sur la session à distance
     </Entry>
     <Entry key="OperationStatus_ValidateVirtualMachinePolicy">
-        Validiere Richtlinie für virtuelle Maschinen
+        Validation de la directive sur les machines virtuelles
     </Entry>
     <Entry key="OperationStatus_WaitExplorerStartup">
-        Warte bis Windows Explorer gestartet ist
+        Attente du démarrage de l’explorateur Windows
     </Entry>
     <Entry key="OperationStatus_WaitExplorerTermination">
-        Warte bis Windows Explorer beendet ist
+        Attente de l’arrêt de l’explorateur Windows
     </Entry>
     <Entry key="OperationStatus_WaitRuntimeDisconnection">
-        Warte bis Runtime Verbindung trennt
+        Attente de la déconnexion du runtime
     </Entry>
     <Entry key="PasswordDialog_BrowserHomePasswordRequired">
-        Beenden-/Neustart-Passwort eingeben: (Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)
+        Saisissez le mot de passe pour quitter/redémarrer : (Cette fonction ne vous déconnecte pas si vous êtes connecté sur un site web)
     </Entry>
     <Entry key="PasswordDialog_BrowserHomePasswordRequiredTitle">
-        Zurück zum Start
+        Retour au début
     </Entry>
     <Entry key="PasswordDialog_Cancel">
-        Abbrechen
+        Annuler
     </Entry>
     <Entry key="PasswordDialog_Confirm">
-        Bestätigen
+        Confirmer
     </Entry>
     <Entry key="PasswordDialog_LocalAdminPasswordRequired">
-        Bitte geben Sie das Administrator-Passwort für die lokale Konfiguration ein:
+        Veuillez saisir le mot de passe de l'administrateur pour la configuration du client local :
     </Entry>
     <Entry key="PasswordDialog_LocalAdminPasswordRequiredTitle">
-        Administrator-Passwort erforderlich
+        Mot de passe administrateur requis
     </Entry>
     <Entry key="PasswordDialog_LocalSettingsPasswordRequired">
-        Bitte geben Sie das Passwort für die lokale Konfiguration ein:
+        Veuillez entrer le mot de passe pour la configuration du client local:
     </Entry>
     <Entry key="PasswordDialog_LocalSettingsPasswordRequiredTitle">
-        Passwort erforderlich
+        Mot de passe des paramètres requis
     </Entry>
     <Entry key="PasswordDialog_QuitPasswordRequired">
-        Bitte geben Sie das Quit-Passwort ein um SEB zu beenden:
+        Veuillez saisir le mot de passe pour quitter SEB :
     </Entry>
     <Entry key="PasswordDialog_QuitPasswordRequiredTitle">
-        Quit-Passwort erforderlich
+        Mot de passe de sortie requis
     </Entry>
     <Entry key="PasswordDialog_SettingsPasswordRequired">
-        Bitte geben Sie das Passwort für die ausgewählte Konfiguration ein:
+        Veuillez saisir le mot de passe de la configuration sélectionnée:
     </Entry>
     <Entry key="PasswordDialog_SettingsPasswordRequiredTitle">
-        Passwort erforderlich
+        Réglages Mot de passe requis
     </Entry>
     <Entry key="RuntimeWindow_ApplicationRunning">
-        SEB wird ausgeführt.
+        SEB fonctionne.
     </Entry>
     <Entry key="ServerFailureDialog_Abort">
-        Abbrechen
+        Abandonner
     </Entry>
     <Entry key="ServerFailureDialog_Fallback">
         Fallback
     </Entry>
     <Entry key="ServerFailureDialog_Message">
-        Bei der Kommunikation mit dem SEB-Server ist ein Fehler aufgetreten.
+        Une erreur s'est produite lors de la tentative de communication avec le serveur SEB.
     </Entry>
     <Entry key="ServerFailureDialog_Retry">
-        Wiederholen
+        Ressayer
     </Entry>
     <Entry key="ServerFailureDialog_Title">
-        SEB-Server-Fehler
+        Erreur du serveur SEB
     </Entry>
     <Entry key="Shell_QuitButton">
-        Sitzung beenden
+        Terminer la session
     </Entry>
     <Entry key="SystemControl_AudioDeviceInfo">
         %%NAME%%: %%VOLUME%%%
     </Entry>
     <Entry key="SystemControl_AudioDeviceInfoMuted">
-        %%NAME%%: Ton aus
+        %%NAME%%: Coupé
     </Entry>
     <Entry key="SystemControl_AudioDeviceMuteTooltip">
-        Klicken um Ton auszuschalten
+        Cliquez pour couper le son
     </Entry>
     <Entry key="SystemControl_AudioDeviceNotFound">
-        Kein aktives Audio-Gerät gefunden
+        Aucun périphérique audio actif trouvé
     </Entry>
     <Entry key="SystemControl_AudioDeviceUnmuteTooltip">
-        Klicken um Ton einzuschalten
+        Cliquez pour rétablir le son
     </Entry>
     <Entry key="SystemControl_BatteryCharging">
-        Angeschlossen, lade... (%%CHARGE%%%)
+        Branché, en charge... (%%CHARGE%%%)
     </Entry>
     <Entry key="SystemControl_BatteryCharged">
-        Aufgeladen (%%CHARGE%%%)
+        Entièrement chargé (%%CHARGE%%%)
     </Entry>
     <Entry key="SystemControl_BatteryChargeCriticalWarning">
-        Der Akku ist in kritischem Zustand. Bitte schliessen Sie den Computer an eine Stromquelle an!
+        La charge de la batterie est dangereusement faible. Veuillez brancher votre ordinateur à une source d'alimentation électrique !
     </Entry>
     <Entry key="SystemControl_BatteryChargeLowInfo">
-        Der Akku nähert sich dem kritischen Zustand. Bitte schliessen Sie den Computer rechtzeitig an eine Stromquelle an...
+        La charge de la batterie devient faible. Pensez à brancher votre ordinateur sur une alimentation électrique...
     </Entry>
     <Entry key="SystemControl_BatteryRemainingCharge">
-        %%HOURS%%h %%MINUTES%%min verbleiben (%%CHARGE%%%)
+        %%HOURS%%h %%MINUTES%%min restantes (%%CHARGE%%%)
     </Entry>
     <Entry key="SystemControl_KeyboardLayoutTooltip">
-        Das aktuelle Tastatur-Layout ist "%%LAYOUT%%"
+        La disposition actuelle du clavier est "%%LAYOUT%%"
     </Entry>
     <Entry key="SystemControl_WirelessConnected">
-        Verbunden mit "%%NAME%%"
+        Connecté à "%%NAME%%"
     </Entry>
     <Entry key="SystemControl_WirelessConnecting">
-        Verbinde...
+        Connection en cours...
     </Entry>
     <Entry key="SystemControl_WirelessDisconnected">
-        Getrennt
+        Déconnecté
     </Entry>
     <Entry key="SystemControl_WirelessNotAvailable">
-        Kein WLAN-Netzwerkadapter verfügbar oder eingestellt
+        Pas d'adaptateur réseau sans fil disponible ou allumé
     </Entry>
     <Entry key="Version">
         Version

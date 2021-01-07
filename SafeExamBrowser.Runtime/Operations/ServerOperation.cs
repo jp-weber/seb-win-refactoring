@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SafeExamBrowser.Configuration.Contracts;
 using SafeExamBrowser.Core.Contracts.OperationModel;
 using SafeExamBrowser.Core.Contracts.OperationModel.Events;
@@ -58,11 +59,21 @@ namespace SafeExamBrowser.Runtime.Operations
 
 				if (success)
 				{
-					(abort, fallback, success) = TryPerformWithFallback(() => server.GetAvailableExams(), out var exams);
+					(abort, fallback, success) = TryPerformWithFallback(() => server.GetAvailableExams(Context.Next.Settings.Server.ExamId), out var exams);
 
 					if (success)
 					{
-						success = TrySelectExam(exams, out var exam);
+						var exam = default(Exam);
+
+						if (!string.IsNullOrWhiteSpace(Context.Next.Settings.Server.ExamId))
+						{
+							exam = exams.First();
+							logger.Info("Automatically selected exam as defined in configuration.");
+						}
+						else
+						{
+							success = TrySelectExam(exams, out exam);
+						}
 
 						if (success)
 						{
@@ -122,14 +133,25 @@ namespace SafeExamBrowser.Runtime.Operations
 
 		public override OperationResult Repeat()
 		{
-			var result = Revert();
-
-			if (result == OperationResult.Success)
+			if (Context.Current.Settings.SessionMode == SessionMode.Server)
 			{
-				result = Perform();
+				logger.Info("Initializing server configuration for next session...");
+
+				Context.Next.AppConfig.ServerApi = Context.Current.AppConfig.ServerApi;
+				Context.Next.AppConfig.ServerConnectionToken = Context.Current.AppConfig.ServerConnectionToken;
+				Context.Next.AppConfig.ServerConnectivityAutoStart = true;
+				Context.Next.AppConfig.ServerExamId = Context.Current.AppConfig.ServerExamId;
+				Context.Next.AppConfig.ServerOauth2Token = Context.Current.AppConfig.ServerOauth2Token;
+
+				Context.Next.Settings.Server = Context.Current.Settings.Server;
+				Context.Next.Settings.SessionMode = SessionMode.Server;
+			}
+			else if (Context.Next.Settings.SessionMode == SessionMode.Server)
+			{
+				return Perform();
 			}
 
-			return result;
+			return OperationResult.Success;
 		}
 
 		public override OperationResult Revert()

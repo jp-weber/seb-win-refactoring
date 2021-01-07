@@ -27,6 +27,8 @@ using SafeExamBrowser.Server.Contracts.Events;
 using SafeExamBrowser.Server.Data;
 using SafeExamBrowser.Settings.Logging;
 using SafeExamBrowser.Settings.Server;
+using SafeExamBrowser.SystemComponents.Contracts.PowerSupply;
+using SafeExamBrowser.SystemComponents.Contracts.WirelessNetwork;
 using Timer = System.Timers.Timer;
 
 namespace SafeExamBrowser.Server
@@ -37,27 +39,37 @@ namespace SafeExamBrowser.Server
 		private AppConfig appConfig;
 		private CancellationTokenSource cancellationTokenSource;
 		private string connectionToken;
+		private int currentPowerSupplyValue;
+		private int currentWlanValue;
 		private string examId;
 		private HttpClient httpClient;
 		private ILogger logger;
 		private ConcurrentQueue<ILogContent> logContent;
 		private string oauth2Token;
 		private int pingNumber;
+		private IPowerSupply powerSupply;
 		private ServerSettings settings;
 		private Task task;
 		private Timer timer;
+		private IWirelessAdapter wirelessAdapter;
 
 		public event TerminationRequestedEventHandler TerminationRequested;
 
-		public ServerProxy(AppConfig appConfig, ILogger logger)
+		public ServerProxy(
+			AppConfig appConfig,
+			ILogger logger,
+			IPowerSupply powerSupply = default(IPowerSupply),
+			IWirelessAdapter wirelessAdapter = default(IWirelessAdapter))
 		{
 			this.api = new ApiVersion1();
 			this.appConfig = appConfig;
 			this.cancellationTokenSource = new CancellationTokenSource();
 			this.httpClient = new HttpClient();
-			this.logger = logger;
 			this.logContent = new ConcurrentQueue<ILogContent>();
+			this.logger = logger;
+			this.powerSupply = powerSupply;
 			this.timer = new Timer();
+			this.wirelessAdapter = wirelessAdapter;
 		}
 
 		public ServerResponse Connect()
@@ -116,10 +128,10 @@ namespace SafeExamBrowser.Server
 			return new ServerResponse(success, message);
 		}
 
-		public ServerResponse<IEnumerable<Exam>> GetAvailableExams()
+		public ServerResponse<IEnumerable<Exam>> GetAvailableExams(string examId = default(string))
 		{
 			var authorization = ("Authorization", $"Bearer {oauth2Token}");
-			var content = $"institutionId={settings.Institution}";
+			var content = $"institutionId={settings.Institution}{(examId == default(string) ? "" : $"&examId={examId}")}";
 			var contentType = "application/x-www-form-urlencoded";
 			var exams = default(IList<Exam>);
 
@@ -252,31 +264,40 @@ namespace SafeExamBrowser.Server
 			}
 
 			logger.Subscribe(this);
-
 			task = new Task(SendLog, cancellationTokenSource.Token);
 			task.Start();
-
 			logger.Info("Started sending log items.");
 
 			timer.AutoReset = false;
 			timer.Elapsed += Timer_Elapsed;
 			timer.Interval = 1000;
 			timer.Start();
+			logger.Info("Started sending pings.");
 
-			logger.Info("Starting sending pings.");
+			if (powerSupply != default(IPowerSupply) && wirelessAdapter != default(IWirelessAdapter))
+			{
+				powerSupply.StatusChanged += PowerSupply_StatusChanged;
+				wirelessAdapter.NetworksChanged += WirelessAdapter_NetworksChanged;
+				logger.Info("Started monitoring system components.");
+			}
 		}
 
 		public void StopConnectivity()
 		{
+			if (powerSupply != default(IPowerSupply) && wirelessAdapter != default(IWirelessAdapter))
+			{
+				powerSupply.StatusChanged -= PowerSupply_StatusChanged;
+				wirelessAdapter.NetworksChanged -= WirelessAdapter_NetworksChanged;
+				logger.Info("Stopped monitoring system components.");
+			}
+
 			logger.Unsubscribe(this);
 			cancellationTokenSource.Cancel();
 			task?.Wait();
-
 			logger.Info("Stopped sending log items.");
 
 			timer.Stop();
 			timer.Elapsed -= Timer_Elapsed;
-
 			logger.Info("Stopped sending pings.");
 		}
 
@@ -299,13 +320,46 @@ namespace SafeExamBrowser.Server
 							["text"] = message.Message
 						};
 						var content = json.ToString();
-						var success = TryExecute(HttpMethod.Post, api.LogEndpoint, out var response, content, contentType, authorization, token);
+
+						TryExecute(HttpMethod.Post, api.LogEndpoint, out var response, content, contentType, authorization, token);
 					}
 				}
 				catch (Exception e)
 				{
 					logger.Error("Failed to send log!", e);
 				}
+			}
+		}
+
+		private void PowerSupply_StatusChanged(IPowerSupplyStatus status)
+		{
+			try
+			{
+				var value = Convert.ToInt32(status.BatteryCharge * 100);
+
+				if (value != currentPowerSupplyValue)
+				{
+					var authorization = ("Authorization", $"Bearer {oauth2Token}");
+					var chargeInfo = $"{status.BatteryChargeStatus} at {value}%";
+					var contentType = "application/json;charset=UTF-8";
+					var gridInfo = $"{(status.IsOnline ? "connected to" : "disconnected from")} the power grid";
+					var token = ("SEBConnectionToken", connectionToken);
+					var json = new JObject
+					{
+						["type"] = ToLogType(LogLevel.Info),
+						["timestamp"] = ToUnixTimestamp(DateTime.Now),
+						["text"] = $"<battery> {chargeInfo}, {status.BatteryTimeRemaining} remaining, {gridInfo}",
+						["numericValue"] = value
+					};
+					var content = json.ToString();
+
+					TryExecute(HttpMethod.Post, api.LogEndpoint, out var response, content, contentType, authorization, token);
+					currentPowerSupplyValue = value;
+				}
+			}
+			catch (Exception e)
+			{
+				logger.Error("Failed to send power supply status!", e);
 			}
 		}
 
@@ -321,9 +375,14 @@ namespace SafeExamBrowser.Server
 
 				if (success)
 				{
-					if (TryParseInstruction(response.Content, out var instruction) && instruction == "SEB_QUIT")
+					if (TryParseInstruction(response.Content, out var instruction))
 					{
-						Task.Run(() => TerminationRequested?.Invoke());
+						switch (instruction)
+						{
+							case "SEB_QUIT":
+								Task.Run(() => TerminationRequested?.Invoke());
+								break;
+						}
 					}
 				}
 				else
@@ -337,6 +396,42 @@ namespace SafeExamBrowser.Server
 			}
 
 			timer.Start();
+		}
+
+		private void WirelessAdapter_NetworksChanged()
+		{
+			const int NOT_CONNECTED = -1;
+
+			try
+			{
+				var network = wirelessAdapter.GetNetworks().FirstOrDefault(n => n.Status == WirelessNetworkStatus.Connected);
+
+				if (network?.SignalStrength != currentWlanValue)
+				{
+					var authorization = ("Authorization", $"Bearer {oauth2Token}");
+					var contentType = "application/json;charset=UTF-8";
+					var token = ("SEBConnectionToken", connectionToken);
+					var json = new JObject { ["type"] = ToLogType(LogLevel.Info), ["timestamp"] = ToUnixTimestamp(DateTime.Now) };
+
+					if (network != default(IWirelessNetwork))
+					{
+						json["text"] = $"<wlan> {network.Name}: {network.Status}, {network.SignalStrength}%";
+						json["numericValue"] = network.SignalStrength;
+					}
+					else
+					{
+						json["text"] = "<wlan> not connected";
+					}
+
+					TryExecute(HttpMethod.Post, api.LogEndpoint, out var response, json.ToString(), contentType, authorization, token);
+
+					currentWlanValue = network?.SignalStrength ?? NOT_CONNECTED;
+				}
+			}
+			catch (Exception e)
+			{
+				logger.Error("Failed to send wireless status!", e);
+			}
 		}
 
 		private bool TryParseApi(HttpContent content)
@@ -379,7 +474,7 @@ namespace SafeExamBrowser.Server
 
 						success = true;
 					}
-
+					 
 					if (!success)
 					{
 						logger.Error("The selected SEB server instance does not support the required API version!");
